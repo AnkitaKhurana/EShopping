@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="91f0c9ea3fc14d7e9539b5954b78099e" Name="Diagram1">
+        <EntityTypeShape EntityType="ShoppingMDFModel.Cart" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingMDFModel.CartLine" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingMDFModel.Customer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingMDFModel.Order" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingMDFModel.OrderLine" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingMDFModel.Product" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingMDFModel.ProductCategory" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingMDFModel.ProductVariant" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingMDFModel.TopProducts" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_Cart_CartStatusId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_Cart_CustomerId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_CartLine_CustomerId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_CartLine_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_Order_CustomerId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_OrderLine_OrderId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_OrderLine_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_Product_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_ProductVariant_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_TopProducts_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingMDFModel.FK_TopProducts_ProductCategoryId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
