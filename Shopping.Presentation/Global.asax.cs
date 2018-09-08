@@ -1,4 +1,5 @@
-﻿using Shopping.Presentation.CustomModelBinders;
+﻿using Shopping.Presentation.App_Start;
+using Shopping.Presentation.CustomModelBinders;
 using Shopping.Shared.DTOs;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,9 @@ namespace Shopping.Presentation
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ModelBinders.Binders.Add(typeof(CustomerDTO), new AddCustomerRole());            
+            ModelBinders.Binders.Add(typeof(CustomerDTO), new AddCustomerRole());
+            GlobalFilters.Filters.Add(new AuthorizationFilter());
+            GlobalFilters.Filters.Add(new CheckForAdmin());
         }
     }
 }

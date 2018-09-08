@@ -10,11 +10,11 @@ namespace Shopping.BLL.Logic
 {
     public class CustomerLogic
     {
-        public static bool Register(CustomerDTO customer)
+        public static bool Register (CustomerDTO customer)
         {
             try
             {
-                var saved = CustomerData.Register(customer);
+                bool saved = CustomerData.Register(customer);
                 return saved;
             }
             catch (Exception)
@@ -23,5 +23,18 @@ namespace Shopping.BLL.Logic
             }
             
         }
+
+        public static CustomerDTO Find (CustomerDTO customer)
+        {
+            try
+            {
+                CustomerDTO foundCustomer = CustomerData.Find(customer);
+                return foundCustomer;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        } 
     }
 }

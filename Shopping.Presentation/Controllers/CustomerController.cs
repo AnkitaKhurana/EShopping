@@ -14,41 +14,50 @@ namespace Shopping.Presentation.Controllers
 {
     public class CustomerController : Controller
     {
-        
+
         // GET: Customers
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
 
-        //// Login: Customer
-        //public ActionResult Login()
-        //{
-        //    return View();
-        //}
+        // Login: Customer
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Login([Bind(Include = "ID,Email,Password")] CustomerDTO user)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        CustomerDTO findCustomer = new CustomerDTO() { Name = "Test", Email = "test", Password = "test", RoleId = 2 };
-        //        //CustomerDTO findCustomer = null;
-        //        // CustomerDTO finduser = db.Users.FirstOrDefault(e => e.Name.Equals(user.Name) && e.Password.Equals(user.Password));
-        //        if (findCustomer != null)
-        //        {
-        //            FormsAuthentication.SetAuthCookie(user.Name, false);
-        //            FormsAuthentication.SetAuthCookie(user.Role, false);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
 
-        //            Console.Write(HttpContext.User.Identity.IsAuthenticated);
-        //        }
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(user);
-        //}
+        public ActionResult Login([Bind(Include = "Id,Email,Password")] CustomerDTO user)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                CustomerDTO foundCustomer = CustomerLogic.Find(user);
+                if(foundCustomer != null)
+                {
+                    Session["UserName"] = foundCustomer.Name;
+                    Session["Email"] = foundCustomer.Email;
+                    Session["Role"] = (foundCustomer.Role == 1 ? "Admin" : "Normal Customer");
+                    Session["Id"] = foundCustomer.Id;
+                    Session["Address1"] = foundCustomer.Address1;
+                    Session["Address2"] = foundCustomer.Address2;
+                    Session["Address3"] = foundCustomer.Address3;             
+
+                }
+
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
 
         // Register: Customer
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -56,6 +65,8 @@ namespace Shopping.Presentation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+
         public ActionResult Register([ModelBinder(typeof(AddCustomerRole))] CustomerDTO customer)
         {
             if (ModelState.IsValid)
@@ -66,21 +77,15 @@ namespace Shopping.Presentation.Controllers
             return View(customer);
         }
 
-        // GET: Users/Details/5
-        //[Authorize]
-        //public async Task<ActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Customer user = new Customer() { Name = "Test", Email = "test", Password = "test", RoleId = 2 };
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}       
+       // GET: Users/Details/
+        public ActionResult Details()
+        {           
+            if (Session["id"] == null)
+            {
+                return HttpNotFound();
+            }           
+            return View();
+        }
 
 
 

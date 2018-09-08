@@ -30,6 +30,59 @@ namespace Shopping.DAL.Data
             return true;
 
         }
-               
+
+        public static CustomerDTO Find(CustomerDTO customerDTO)
+        {
+            try
+            {                              
+                var customerFound = db.Customer.FirstOrDefault(x => x.Email == customerDTO.Email && x.Password == customerDTO.Password);
+                if (customerFound!=null)
+                {
+                    CustomerDTO resultCustomer = CustomerMapping.MapCustomer(customerFound);
+                    return resultCustomer;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }          
+        }
+
+        public static Cart MyCart(Guid? id)
+        {
+            try
+            {
+                var cart = db.Cart.Find();
+                //var cart = (from ct in db.Cart
+                //            from c in db.Customer.Where(x => x.Cart == ).DefaultIfEmpty()
+                //            from p in db.Phones.Where(x => x.id_contact == c.id).DefaultIfEmpty()
+                //            from t in db.Tags.Where(x => x.id_contact == c.id).DefaultIfEmpty()
+                //            select new
+                //            {
+                //                id = c.id,
+                //                phones = p.number,
+                //                emails = e.email1,
+                //                tags = t.tag1,
+                //                firstname = c.firstname,
+                //                lastname = c.lastname,
+                //                address = c.address,
+                //                city = c.city,
+                //                bookmarked = c.bookmarked,
+                //                notes = c.notes
+                //            }).ToList();
+
+                if (cart != null)
+                {
+                    return cart;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+      
     }
 }
