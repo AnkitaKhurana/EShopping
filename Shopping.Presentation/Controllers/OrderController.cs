@@ -13,7 +13,8 @@ namespace Shopping.Presentation.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            return View();
+            List<OrderDTO> orderDTO = OrderLogic.Orders(new Guid(Session["id"].ToString()));
+            return View(orderDTO);
         }
 
         // GET: PlaceOrder

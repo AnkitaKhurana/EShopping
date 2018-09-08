@@ -10,6 +10,19 @@ namespace Shopping.BLL.Logic
 {
     public class OrderLogic
     {
+        public static List<OrderDTO> Orders(Guid CustomerId)
+        {
+            try
+            {
+                List<OrderDTO> saved = OrderData.Orders(CustomerId);
+                return saved;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
         public static OrderDTO PlaceOrder(Guid CustomerId)
         {
             try

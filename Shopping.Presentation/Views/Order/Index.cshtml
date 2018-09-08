@@ -1,4 +1,4 @@
-﻿@model Shopping.Shared.DTOs.OrderDTO
+﻿@model Shopping.Shared.DTOs.AllOrdersDTO
 
 @{
     ViewBag.Title = "Index";
@@ -9,32 +9,24 @@
 <div>
     <h4>OrderDTO</h4>
     <hr />
+    @foreach (var order in Model.Orders)
+    {
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CustomerId)
+            @order.Id;
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CustomerId)
+            @order.TotalAmount;
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TotalAmount)
+            @order.OrderStatus;
         </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TotalAmount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OrderStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OrderStatus)
-        </dd>
+       @Html.EditorFor(order.order)
 
     </dl>
+    }
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")

@@ -11,6 +11,55 @@ namespace Shopping.DAL.Data
     public class OrderData
     {
         private static ShoppingDatabaseEntities db = new ShoppingDatabaseEntities();
+
+        public static List<OrderDTO> Orders(Guid customerId)
+        {
+            try
+            {
+                List<OrderDTO> orders = new List<OrderDTO>();
+                decimal sum = 0;
+                var customerOrders = (from order in db.Orders
+                                        where order.CustomerId == customerId
+                                        select new { order }).ToList();
+                foreach(var row in customerOrders)
+                {
+                    var products = (from orderLines in db.OrderLines
+                                    where orderLines.OrderId == row.order.Id
+                                    select new { orderLines }).ToList();
+                    List<OrderLineDTO> allOrders = new List<OrderLineDTO>();
+                    foreach(var productRow in products)
+                    {
+                        allOrders.Add(new OrderLineDTO(){
+                            Id = productRow.orderLines.Id,
+                            OrderId = productRow.orderLines.OrderId,
+                            ProductId = productRow.orderLines.ProductId,
+                            Quantity = productRow.orderLines.Quantity
+
+                        });
+                    }
+                    
+                    orders.Add(new OrderDTO()
+                    {
+                        Id = row.order.Id,
+                        OrderStatus = row.order.OrderStatus,
+                        CustomerId= row.order.CustomerId,
+                        TotalAmount = row.order.TotalAmount,
+                        orders = allOrders                   
+
+                    });
+                }
+
+                return orders;
+
+            }
+
+            catch
+            {
+                return null;
+            }
+        }
+
+
         public static OrderDTO Place(Guid customerId)
         {
             try
