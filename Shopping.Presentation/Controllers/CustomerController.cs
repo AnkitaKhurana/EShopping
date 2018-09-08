@@ -88,6 +88,18 @@ namespace Shopping.Presentation.Controllers
         }
 
 
+        public ActionResult Cart()
+        {
+            if (Session["id"] == null)
+            {
+                return HttpNotFound();
+            }
+            string id = Session["id"].ToString();
+            CartDTO cart = CartLogic.MyCart(new Guid(id));
+            return View(cart);
+        }
+
+
 
     }
 }

@@ -8,7 +8,7 @@ namespace Shopping.Shared.DTOs
 {
     public class CustomerDTO
     {      
-        public System.Guid Id { get; set; }
+        public Guid Id { get; set; }
         public byte Role { get; set; }
         public string Name { get; set; }
         public string Address1 { get; set; }

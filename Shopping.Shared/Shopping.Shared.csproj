@@ -42,7 +42,11 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Constants\ErrorMessages.cs" />
+    <Compile Include="DTOs\CartDTO.cs" />
+    <Compile Include="DTOs\CartItemDTO.cs" />
     <Compile Include="DTOs\CustomerDTO.cs" />
+    <Compile Include="DTOs\ProductDTO.cs" />
+    <Compile Include="DTOs\ProductVariantDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

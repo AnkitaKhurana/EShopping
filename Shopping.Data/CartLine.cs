@@ -15,9 +15,9 @@ namespace Shopping.Data
     public partial class CartLine
     {
         public Nullable<System.Guid> Id { get; set; }
+        public int Quantity { get; set; }
         public System.Guid ProductId { get; set; }
         public System.Guid CustomerId { get; set; }
-        public System.Guid Quantity { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Product Product { get; set; }

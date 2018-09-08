@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="15fff79a7d0844be8bf44a06c1e99552" Name="Diagram1">
+        <EntityTypeShape EntityType="ShoppingDatabaseModel.CartLine" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingDatabaseModel.Customer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingDatabaseModel.Order" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingDatabaseModel.OrderLine" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingDatabaseModel.Product" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingDatabaseModel.ProductCategory" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingDatabaseModel.ProductVariant" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingDatabaseModel.TopProduct" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="ShoppingDatabaseModel.FK_CartLine_CustomerId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingDatabaseModel.FK_CartLine_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingDatabaseModel.FK_Order_CustomerId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingDatabaseModel.FK_OrderLine_OrderId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingDatabaseModel.FK_OrderLine_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingDatabaseModel.FK_Product_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingDatabaseModel.FK_ProductVariant_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingDatabaseModel.FK_TopProducts_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingDatabaseModel.FK_TopProducts_ProductCategoryId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

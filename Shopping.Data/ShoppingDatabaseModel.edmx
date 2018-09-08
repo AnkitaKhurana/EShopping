@@ -4,16 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShoppingDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ShoppingDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CartLine">
           <Key>
             <PropertyRef Name="ProductId" />
             <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CustomerId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Quantity" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -191,7 +191,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ShoppingDataModelStoreContainer">
+        <EntityContainer Name="ShoppingDatabaseModelStoreContainer">
           <EntitySet Name="CartLine" EntityType="Self.CartLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -241,16 +241,16 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ShoppingDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ShoppingDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CartLine">
           <Key>
             <PropertyRef Name="ProductId" />
             <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="Id" Type="Guid" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Guid" Nullable="false" />
           <Property Name="CustomerId" Type="Guid" Nullable="false" />
-          <Property Name="Quantity" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_CartLine_CustomerId" FromRole="CartLine" ToRole="Customer" />
           <NavigationProperty Name="Product" Relationship="Self.FK_CartLine_ProductId" FromRole="CartLine" ToRole="Product" />
         </EntityType>
@@ -446,7 +446,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ShoppingDataEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ShoppingDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CartLines" EntityType="Self.CartLine" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -497,19 +497,19 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ShoppingDataModelStoreContainer" CdmEntityContainer="ShoppingDataEntities">
+        <EntityContainerMapping StorageEntityContainer="ShoppingDatabaseModelStoreContainer" CdmEntityContainer="ShoppingDatabaseEntities">
           <EntitySetMapping Name="CartLines">
-            <EntityTypeMapping TypeName="ShoppingDataModel.CartLine">
+            <EntityTypeMapping TypeName="ShoppingDatabaseModel.CartLine">
               <MappingFragment StoreEntitySet="CartLine">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="ShoppingDataModel.Customer">
+            <EntityTypeMapping TypeName="ShoppingDatabaseModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
@@ -523,7 +523,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="ShoppingDataModel.Order">
+            <EntityTypeMapping TypeName="ShoppingDatabaseModel.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
@@ -533,7 +533,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderLines">
-            <EntityTypeMapping TypeName="ShoppingDataModel.OrderLine">
+            <EntityTypeMapping TypeName="ShoppingDatabaseModel.OrderLine">
               <MappingFragment StoreEntitySet="OrderLine">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
@@ -543,7 +543,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="ShoppingDataModel.Product">
+            <EntityTypeMapping TypeName="ShoppingDatabaseModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -556,7 +556,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductCategories">
-            <EntityTypeMapping TypeName="ShoppingDataModel.ProductCategory">
+            <EntityTypeMapping TypeName="ShoppingDatabaseModel.ProductCategory">
               <MappingFragment StoreEntitySet="ProductCategory">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -565,7 +565,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductVariants">
-            <EntityTypeMapping TypeName="ShoppingDataModel.ProductVariant">
+            <EntityTypeMapping TypeName="ShoppingDatabaseModel.ProductVariant">
               <MappingFragment StoreEntitySet="ProductVariant">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -574,7 +574,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TopProducts">
-            <EntityTypeMapping TypeName="ShoppingDataModel.TopProduct">
+            <EntityTypeMapping TypeName="ShoppingDatabaseModel.TopProduct">
               <MappingFragment StoreEntitySet="TopProducts">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TotalSale" ColumnName="TotalSale" />

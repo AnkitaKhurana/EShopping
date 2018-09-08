@@ -13,10 +13,10 @@ namespace Shopping.Data
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ShoppingDataEntities : DbContext
+    public partial class ShoppingDatabaseEntities : DbContext
     {
-        public ShoppingDataEntities()
-            : base("name=ShoppingDataEntities")
+        public ShoppingDatabaseEntities()
+            : base("name=ShoppingDatabaseEntities")
         {
         }
     

@@ -1,4 +1,5 @@
 
+
 SET XACT_ABORT ON
 
 BEGIN TRANSACTION QUICKDBD
@@ -80,9 +81,9 @@ CREATE TABLE [ProductCategory] (
 
 CREATE TABLE [CartLine] (
     [Id] uniqueidentifier DEFAULT NEWID(),
+	[Quantity] int NOT NULL ,
     [ProductId] uniqueidentifier  NOT NULL ,
-    [CustomerId] uniqueidentifier  NOT NULL ,
-    [Quantity] uniqueidentifier  NOT NULL ,
+    [CustomerId] uniqueidentifier  NOT NULL ,   
     CONSTRAINT [PK_CartLine] PRIMARY KEY CLUSTERED (
         [ProductId] ASC,[CustomerId] ASC
     )

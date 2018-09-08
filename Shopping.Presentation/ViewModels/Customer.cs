@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Shopping.Shared.Constants;
 
 namespace Shopping.Presentation.ViewModels
 {
+
     public class Customer
     {
         [Required(ErrorMessage = "Name is required")]
