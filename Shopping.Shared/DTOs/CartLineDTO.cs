@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Shopping.Shared.DTOs
 {
-    public class CartItemDTO
+    public class CartLineDTO
     {
-        public Guid? Id { get; set; }
-        public ProductDTO Product { get; set; }
+        public Guid Id { get; set; }
         public int Quantity { get; set; }
+        public Guid CustomerId { get; set; }
+        public Guid ProductId { get; set; }
+
     }
 }

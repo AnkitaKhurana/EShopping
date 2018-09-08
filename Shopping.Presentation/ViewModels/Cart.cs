@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shopping.Shared.DTOs
+namespace Shopping.Presentation.ViewModels
+
 {
-    public class CartDTO
+    public class Cart
     {
        
-        public CartDTO()
+        public Cart()
         {
             Id = Guid.NewGuid();
-            items = new List<CartItemDTO>();            
+            items = new List<CartItem>();            
         }
         public Guid? Id { get; set; }
-        public List<CartItemDTO> items;
+        public List<CartItem> items { get; set; }
     }
 }

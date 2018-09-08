@@ -156,14 +156,20 @@
     <Compile Include="App_Start\CheckForAdmin.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="CustomModelBinders\AddCustomerRole.cs" />
+    <Compile Include="Mapping\CartMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Cart.cs" />
+    <Compile Include="ViewModels\CartItem.cs" />
+    <Compile Include="ViewModels\CartLine.cs" />
     <Compile Include="ViewModels\Customer.cs" />
+    <Compile Include="ViewModels\Product.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -211,7 +217,10 @@
     <Content Include="Views\Customer\Login.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
-    <Content Include="Views\Customer\Cart.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CartItem.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

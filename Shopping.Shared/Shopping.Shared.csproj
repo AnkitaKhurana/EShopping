@@ -44,6 +44,7 @@
     <Compile Include="Constants\ErrorMessages.cs" />
     <Compile Include="DTOs\CartDTO.cs" />
     <Compile Include="DTOs\CartItemDTO.cs" />
+    <Compile Include="DTOs\CartLineDTO.cs" />
     <Compile Include="DTOs\CustomerDTO.cs" />
     <Compile Include="DTOs\ProductDTO.cs" />
     <Compile Include="DTOs\ProductVariantDTO.cs" />

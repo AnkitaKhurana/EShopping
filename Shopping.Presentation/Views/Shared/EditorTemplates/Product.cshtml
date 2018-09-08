@@ -1,0 +1,19 @@
+﻿
+@model Shopping.Presentation.ViewModels.Product
+
+
+  
+        <h4>Customer</h4>
+        <hr />
+     
+
+        <div >
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">            
+                @Html.DisplayFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        
+
+       
