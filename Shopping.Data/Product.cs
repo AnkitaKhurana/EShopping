@@ -17,27 +17,28 @@ namespace Shopping.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.CartLine = new HashSet<CartLine>();
-            this.OrderLine = new HashSet<OrderLine>();
-            this.ProductVariant = new HashSet<ProductVariant>();
-            this.TopProducts = new HashSet<TopProducts>();
+            this.CartLines = new HashSet<CartLine>();
+            this.OrderLines = new HashSet<OrderLine>();
+            this.ProductVariants = new HashSet<ProductVariant>();
+            this.TopProducts = new HashSet<TopProduct>();
         }
     
         public System.Guid Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Description { get; set; }
+        public string ImageURL { get; set; }
         public System.Guid CategoryId { get; set; }
         public int TotalQuantitySale { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartLine> CartLine { get; set; }
+        public virtual ICollection<CartLine> CartLines { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderLine> OrderLine { get; set; }
+        public virtual ICollection<OrderLine> OrderLines { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductVariant> ProductVariant { get; set; }
+        public virtual ICollection<ProductVariant> ProductVariants { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TopProducts> TopProducts { get; set; }
+        public virtual ICollection<TopProduct> TopProducts { get; set; }
     }
 }

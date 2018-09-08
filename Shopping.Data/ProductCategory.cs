@@ -17,18 +17,17 @@ namespace Shopping.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProductCategory()
         {
-            this.Product = new HashSet<Product>();
-            this.TopProducts = new HashSet<TopProducts>();
+            this.Products = new HashSet<Product>();
+            this.TopProducts = new HashSet<TopProduct>();
         }
     
         public System.Guid Id { get; set; }
         public string Name { get; set; }
-        public string ImageURL { get; set; }
         public int TotalSaleQuantity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TopProducts> TopProducts { get; set; }
+        public virtual ICollection<TopProduct> TopProducts { get; set; }
     }
 }

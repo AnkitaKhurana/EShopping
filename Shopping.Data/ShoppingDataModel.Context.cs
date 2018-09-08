@@ -13,10 +13,10 @@ namespace Shopping.Data
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ShoppingMDFEntities : DbContext
+    public partial class ShoppingDataEntities : DbContext
     {
-        public ShoppingMDFEntities()
-            : base("name=ShoppingMDFEntities")
+        public ShoppingDataEntities()
+            : base("name=ShoppingDataEntities")
         {
         }
     
@@ -25,14 +25,13 @@ namespace Shopping.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Cart> Cart { get; set; }
-        public virtual DbSet<CartLine> CartLine { get; set; }
-        public virtual DbSet<Customer> Customer { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<OrderLine> OrderLine { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<ProductCategory> ProductCategory { get; set; }
-        public virtual DbSet<ProductVariant> ProductVariant { get; set; }
-        public virtual DbSet<TopProducts> TopProducts { get; set; }
+        public virtual DbSet<CartLine> CartLines { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderLine> OrderLines { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategories { get; set; }
+        public virtual DbSet<ProductVariant> ProductVariants { get; set; }
+        public virtual DbSet<TopProduct> TopProducts { get; set; }
     }
 }

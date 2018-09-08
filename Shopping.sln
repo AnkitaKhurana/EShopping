@@ -19,9 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Shopping.BLL", "2.Shoppin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Shopping.DAL", "3.Shopping.DAL", "{CB3CB5F0-AE37-41A6-8CC0-2ACAE1374DCE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Shopping.Data", "4.Shopping.Data", "{D1C4027D-E16F-4E7A-BF7A-6DBA1500ADFE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Shopping.Data", "5.Shopping.Data", "{D1C4027D-E16F-4E7A-BF7A-6DBA1500ADFE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.Shopping.Shared", "5.Shopping.Shared", "{6ED25CC5-6A8F-4406-A94B-3265B8D6DEE4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.Shopping.Shared", "4.Shopping.Shared", "{6ED25CC5-6A8F-4406-A94B-3265B8D6DEE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,14 +12,14 @@ namespace Shopping.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Cart
+    public partial class TopProduct
     {
         public System.Guid Id { get; set; }
-        public System.Guid CartStatusId { get; set; }
-        public System.Guid CustomerId { get; set; }
-        public decimal TotalAmount { get; set; }
+        public int TotalSale { get; set; }
+        public System.Guid ProductId { get; set; }
+        public System.Guid ProductCategoryId { get; set; }
     
-        public virtual CartLine CartLine { get; set; }
-        public virtual Customer Customer { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }
     }
 }

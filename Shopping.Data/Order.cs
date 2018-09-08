@@ -17,7 +17,7 @@ namespace Shopping.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Order()
         {
-            this.OrderLine = new HashSet<OrderLine>();
+            this.OrderLines = new HashSet<OrderLine>();
         }
     
         public System.Guid Id { get; set; }
@@ -27,6 +27,6 @@ namespace Shopping.Data
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderLine> OrderLine { get; set; }
+        public virtual ICollection<OrderLine> OrderLines { get; set; }
     }
 }

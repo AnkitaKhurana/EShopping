@@ -1,4 +1,4 @@
-﻿
+
 SET XACT_ABORT ON
 
 BEGIN TRANSACTION QUICKDBD
@@ -46,6 +46,7 @@ CREATE TABLE [Product] (
     [Name] varchar(200)  NOT NULL ,
     [Price] decimal  NOT NULL ,
     [Description] varchar(1000)  NOT NULL ,
+	[ImageURL] varchar(200)  NULL ,
     [CategoryId] uniqueidentifier  NOT NULL ,
     [TotalQuantitySale] int  NOT NULL ,
     CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED (
@@ -68,7 +69,6 @@ CREATE TABLE [ProductVariant] (
 CREATE TABLE [ProductCategory] (
     [Id] uniqueidentifier DEFAULT NEWID(),
     [Name] varchar(200)  NOT NULL ,
-    [ImageURL] varchar(200)  NULL ,
     [TotalSaleQuantity] int  NOT NULL ,
     CONSTRAINT [PK_ProductCategory] PRIMARY KEY CLUSTERED (
         [Id] ASC
@@ -84,19 +84,10 @@ CREATE TABLE [CartLine] (
     [CustomerId] uniqueidentifier  NOT NULL ,
     [Quantity] uniqueidentifier  NOT NULL ,
     CONSTRAINT [PK_CartLine] PRIMARY KEY CLUSTERED (
-        [Id] ASC
+        [ProductId] ASC,[CustomerId] ASC
     )
 )
 
-CREATE TABLE [Cart] (
-    [Id] uniqueidentifier DEFAULT NEWID(),
-    [CartStatusId] uniqueidentifier  NOT NULL ,
-    [CustomerId] uniqueidentifier  NOT NULL ,
-    [TotalAmount] decimal  NOT NULL ,
-    CONSTRAINT [PK_Cart] PRIMARY KEY CLUSTERED (
-        [Id] ASC
-    )
-)
 
 CREATE TABLE [TopProducts] (
     [Id] uniqueidentifier DEFAULT NEWID(),
@@ -144,16 +135,6 @@ ALTER TABLE [CartLine] WITH CHECK ADD CONSTRAINT [FK_CartLine_CustomerId] FOREIG
 REFERENCES [Customer] ([Id])
 
 ALTER TABLE [CartLine] CHECK CONSTRAINT [FK_CartLine_CustomerId]
-
-ALTER TABLE [Cart] WITH CHECK ADD CONSTRAINT [FK_Cart_CartStatusId] FOREIGN KEY([CartStatusId])
-REFERENCES [CartLine] ([Id])
-
-ALTER TABLE [Cart] CHECK CONSTRAINT [FK_Cart_CartStatusId]
-
-ALTER TABLE [Cart] WITH CHECK ADD CONSTRAINT [FK_Cart_CustomerId] FOREIGN KEY([CustomerId])
-REFERENCES [Customer] ([Id])
-
-ALTER TABLE [Cart] CHECK CONSTRAINT [FK_Cart_CustomerId]
 
 ALTER TABLE [TopProducts] WITH CHECK ADD CONSTRAINT [FK_TopProducts_ProductId] FOREIGN KEY([ProductId])
 REFERENCES [Product] ([Id])

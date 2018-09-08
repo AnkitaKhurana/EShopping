@@ -17,9 +17,8 @@ namespace Shopping.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
-            this.Cart = new HashSet<Cart>();
-            this.CartLine = new HashSet<CartLine>();
-            this.Order = new HashSet<Order>();
+            this.CartLines = new HashSet<CartLine>();
+            this.Orders = new HashSet<Order>();
         }
     
         public System.Guid Id { get; set; }
@@ -32,10 +31,8 @@ namespace Shopping.Data
         public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Cart { get; set; }
+        public virtual ICollection<CartLine> CartLines { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartLine> CartLine { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Order { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

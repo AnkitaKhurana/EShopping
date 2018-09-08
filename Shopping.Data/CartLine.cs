@@ -14,19 +14,11 @@ namespace Shopping.Data
     
     public partial class CartLine
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CartLine()
-        {
-            this.Cart = new HashSet<Cart>();
-        }
-    
-        public System.Guid Id { get; set; }
+        public Nullable<System.Guid> Id { get; set; }
         public System.Guid ProductId { get; set; }
         public System.Guid CustomerId { get; set; }
         public System.Guid Quantity { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Cart { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual Product Product { get; set; }
     }
