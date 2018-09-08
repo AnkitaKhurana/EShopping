@@ -50,6 +50,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Data\CartData.cs" />
     <Compile Include="Data\CustomerData.cs" />
+    <Compile Include="Data\OrderData.cs" />
     <Compile Include="Map\CartMapping.cs" />
     <Compile Include="Map\CustomerMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

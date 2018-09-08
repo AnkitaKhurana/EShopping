@@ -26,7 +26,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <input type="button" value="Place Order" onclick="location.href='@Url.Action("Place", "Order")'" />
 </div>
 
 @section Scripts {
