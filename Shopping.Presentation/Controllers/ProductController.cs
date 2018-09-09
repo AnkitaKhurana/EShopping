@@ -11,11 +11,28 @@ namespace Shopping.Presentation.Controllers
     public class ProductController : Controller
     {
         // GET: Product
+        //[allowanonymous]
+        //public actionresult index()
+        //{
+        //    productsdto products = productlogic.allproducts();
+        //    return view(products);
+        //}
+
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            ProductsDTO products = ProductLogic.AllProducts();
+            ProductsDTO products;
+            if (String.IsNullOrEmpty(searchString))
+            {
+                products = ProductLogic.AllProducts();
+            }
+            else
+            {
+                products = ProductLogic.AllProductsInSearch(searchString);
+            }
+            
             return View(products);
+
         }
     }
 }

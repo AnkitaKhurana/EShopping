@@ -14,7 +14,46 @@ namespace Shopping.BLL.Logic
         {
             try
             {
-                ProductsDTO saved =  ProductData.AllProducts();
+                ProductsDTO saved =  ProductData.AllProducts(null,null);
+                return saved;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        public static ProductsDTO AllProductsInCategory(Guid categoryId)
+        {
+            try
+            {
+                ProductsDTO saved = ProductData.AllProducts(null, categoryId);
+                return saved;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        public static ProductsDTO AllProductsInSearch(string searchString)
+        {
+            try
+            {
+                ProductsDTO saved = ProductData.AllProducts( searchString,null);
+                return saved;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
+        public static ProductsDTO AllProductsInSearchAndCategory(string searchString, Guid categoryId )
+        {
+            try
+            {
+                ProductsDTO saved = ProductData.AllProducts(searchString, categoryId);
                 return saved;
             }
             catch (Exception)

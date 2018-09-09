@@ -18,7 +18,7 @@ namespace Shopping.Shared.DTOs
         public string Description { get; set; }
         public string ImageURL { get; set; }
         public int TotalQuantitySale { get; set; }
-        public string Category { get; set; }
+        public CategoryDTO Category { get; set; }
         public List<string> Variants { get; set; }
     }
 }

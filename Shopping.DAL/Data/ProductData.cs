@@ -13,30 +13,46 @@ namespace Shopping.DAL.Data
         private static ShoppingDatabaseEntities db = new ShoppingDatabaseEntities();
 
 
-        public static ProductsDTO AllProducts()
+        public static ProductsDTO AllProducts(string searchString, Guid? categoryId)
         {
+          
             try
             {
                 ProductsDTO products = new ProductsDTO();
-                var productRows =  (from product in db.Products                                       
-                                    select new { product }).ToList();
+                var productRows = (from product in db.Products
+                              select product);
+
+                if(!String.IsNullOrEmpty(searchString))
+                {                  
+                    productRows = productRows.Where(s => s.Name.Contains(searchString.ToString()) || s.Description.Contains(searchString.ToString()));
+                }
+                if (categoryId.HasValue)
+                {
+                    productRows = productRows.Where(s => s.CategoryId == categoryId);
+                }
+
 
                 foreach (var row in productRows)
                 {
                     List<string> variantList = new List<string>();
-                    foreach(var variant in row.product.ProductVariants)
+                    foreach (var variant in row.ProductVariants)
                     {
                         variantList.Add(variant.Name);
                     }
                     products.Products.Add(new ProductDTO()
                     {
-                        Id = row.product.Id,
-                        ImageURL = row.product.ImageURL,
-                        Name = row.product.Name,
-                        Price = row.product.Price,
-                        Description = row.product.Description,
-                        TotalQuantitySale = row.product.TotalQuantitySale,
-                        Category = row.product.ProductCategory.Name,
+                        Id = row.Id,
+                        ImageURL = row.ImageURL,
+                        Name = row.Name,
+                        Price = row.Price,
+                        Description = row.Description,
+                        TotalQuantitySale = row.TotalQuantitySale,
+                        Category = new CategoryDTO()
+                        {
+                            Id = row.ProductCategory.Id,
+                            Name = row.ProductCategory.Name,
+                            TotalSaleQuantity = row.ProductCategory.TotalSaleQuantity
+                        },
                         Variants = variantList
 
                     });
@@ -48,8 +64,8 @@ namespace Shopping.DAL.Data
             {
                 return null;
             }
-            
-        }
 
+        }
+             
     }
 }

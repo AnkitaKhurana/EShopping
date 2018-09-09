@@ -46,7 +46,13 @@ namespace Shopping.DAL.Data
                             Description = result.p.Description,
                             ImageURL = result.p.ImageURL,
                             TotalQuantitySale = result.p.TotalQuantitySale,
-                            Category = result.pc.Name,
+                            Category = new CategoryDTO()
+                            {
+                                Id = result.pc.Id,
+                                Name = result.pc.Name,
+                                TotalSaleQuantity = result.pc.TotalSaleQuantity
+
+                            },
                             Variants = variants
                         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shopping.Shared.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Shopping.Presentation.ViewModels
         public string Description { get; set; }
         public string ImageURL { get; set; }
         public int TotalQuantitySale { get; set; }
-        public string Category { get; set; }
+        public CategoryDTO Category { get; set; }
         public List<string> Variants { get; set; }
     }
 }

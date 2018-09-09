@@ -10,6 +10,15 @@
     <h4>ProductsDTO</h4>
     <hr />
     <dl class="dl-horizontal"></dl>
+    @using (Html.BeginForm())
+    {
+    <p>
+        
+        Find by name: @Html.TextBox("searchString", ViewBag.searchString as string)
+
+        <input type="submit" value="Search" />
+    </p>
+    }
 
     @foreach (var product in Model.Products)
     {
@@ -24,19 +33,23 @@
             <dt>
                 @product.Name
             </dt>
+            Category:
+            <dt>
+                @product.Category.Name
+            </dt>
 
             Variants:
-            @for (int i = 0; i <product.Variants.Count; i++)
+            @for (int i = 0; i < product.Variants.Count; i++)
             {
                 <dt>
-                   Variant:
+                    Variant:
                 </dt>
 
                 <dt>
                     @product.Variants[i]
-                   
+
                 </dt>
-                
+
             }
 
         </dl>
