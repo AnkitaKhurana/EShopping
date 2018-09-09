@@ -1,0 +1,48 @@
+﻿@model Shopping.Shared.DTOs.ProductsDTO
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>ProductsDTO</h4>
+    <hr />
+    <dl class="dl-horizontal"></dl>
+
+    @foreach (var product in Model.Products)
+    {
+        <dl class="dl-horizontal">
+
+            Price :
+            <dd>
+                @product.Price;
+            </dd>
+
+            name:
+            <dt>
+                @product.Name
+            </dt>
+
+            Variants:
+            @for (int i = 0; i <product.Variants.Count; i++)
+            {
+                <dt>
+                   Variant:
+                </dt>
+
+                <dt>
+                    @product.Variants[i]
+                   
+                </dt>
+                
+            }
+
+        </dl>
+    }
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
