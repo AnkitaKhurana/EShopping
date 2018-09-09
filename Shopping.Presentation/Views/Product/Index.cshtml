@@ -59,8 +59,9 @@
             </dt>
 
         }
+        @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null);
 
-        @Html.ActionLink("Add To Cart", "AddToCart", "Cart", new { product = product.Id }, null);
+
 
 
         @*@using (Html.BeginForm("AddToCart", "Cart", new { product = product.Id }))

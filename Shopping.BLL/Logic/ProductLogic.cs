@@ -62,5 +62,19 @@ namespace Shopping.BLL.Logic
             }
 
         }
+
+        public static ProductDTO Product(Guid productID)
+        {
+            try
+            {
+                ProductDTO saved = ProductData.ProductDetail(productID);
+                return saved;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
     }
 }

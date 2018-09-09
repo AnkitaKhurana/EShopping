@@ -15,15 +15,15 @@ namespace Shopping.DAL.Data
 
         public static ProductsDTO AllProducts(string searchString, Guid? categoryId)
         {
-          
+
             try
             {
                 ProductsDTO products = new ProductsDTO();
                 var productRows = (from product in db.Products
-                              select product);
+                                   select product);
 
-                if(!String.IsNullOrEmpty(searchString))
-                {                  
+                if (!String.IsNullOrEmpty(searchString))
+                {
                     productRows = productRows.Where(s => s.Name.Contains(searchString.ToString()) || s.Description.Contains(searchString.ToString()));
                 }
                 if (categoryId.HasValue)
@@ -66,6 +66,50 @@ namespace Shopping.DAL.Data
             }
 
         }
-             
+
+
+        public static ProductDTO ProductDetail(Guid productId)
+        {
+            try
+            {
+                ProductDTO productDTO = null;
+                var product = (from p in db.Products
+                               where p.Id == productId
+                               select p).FirstOrDefault();
+               
+                if(product!=null)
+                {
+                    List<string> variantList = new List<string>();
+
+                    foreach (var variant in product.ProductVariants)
+                    {
+                        variantList.Add(variant.Name);
+                    }
+                    productDTO = new ProductDTO()
+                    {
+                        Id = product.Id,
+                        ImageURL = product.ImageURL,
+                        Name = product.Name,
+                        Price = product.Price,
+                        Description = product.Description,
+                        TotalQuantitySale = product.TotalQuantitySale,
+                        Category = new CategoryDTO()
+                        {
+                            Id = product.ProductCategory.Id,
+                            Name = product.ProductCategory.Name,
+                            TotalSaleQuantity = product.ProductCategory.TotalSaleQuantity
+                        },
+                        Variants = variantList
+
+                    };
+                    return productDTO;
+                }
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }
