@@ -12,6 +12,49 @@ namespace Shopping.DAL.Data
     {
         private static ShoppingDatabaseEntities db = new ShoppingDatabaseEntities();
 
+        public static ProductsDTO TopCategories()
+        {
+            try
+            {
+                ProductsDTO products = new ProductsDTO();
+                var TopRows = (from product in db.TopProducts
+                                    select product).ToList();
+
+                var orderByCategory = TopRows.OrderBy(x => x.ProductCategory.TotalSaleQuantity).ThenBy(y=>y.TotalSale);
+                
+                foreach(var row in orderByCategory)
+                {
+                    List<string> variantList = new List<string>();
+                    foreach (var variant in row.Product.ProductVariants)
+                    {
+                        variantList.Add(variant.Name);
+                    }
+                    products.Products.Add(new ProductDTO()
+                    {
+                        Id = row.Id,
+                        ImageURL = row.Product.ImageURL,
+                        Name = row.Product.Name,
+                        Price = row.Product.Price,
+                        Description = row.Product.Description,
+                        TotalQuantitySale = row.Product.TotalQuantitySale,
+                        Category = new CategoryDTO()
+                        {
+                            Id = row.ProductCategory.Id,
+                            Name = row.ProductCategory.Name,
+                            TotalSaleQuantity = row.ProductCategory.TotalSaleQuantity
+                        },
+                        Variants = variantList
+
+                    });                  
+                }
+                return products;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public static CategoriesDTO AllCategories()
         {
             try

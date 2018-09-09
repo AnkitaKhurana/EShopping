@@ -1,31 +1,60 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model Shopping.Shared.DTOs.HomePageDTO
+
+@{
+    ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<h2>Index</h2>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+<div>
+    <h4>HomePageDTO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        @for (int i = 0; i < Model.Trending.Count(); i++)
+        {
+            <p>Category : @Model.Trending[i].Category.Name</p>
+
+            <p>rank :  @Model.Trending[i].Rank</p>
+
+        }
+
+    </dl>
 </div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+
+
+
+13dcae3e-4dc6-441b-9a27-a01e0407c95d
+0dfe8086-9541-4d98-8d13-dc42b04833f4
+0dfe8086-9541-4d98-8d13-dc42b04833f4
+7e127594-436e-44e4-9bf3-f1f7211825ed
+b559b4a1-d9fe-41cf-9710-6b2f74de3712
+0dfe8086-9541-4d98-8d13-dc42b04833f4
+7e127594-436e-44e4-9bf3-f1f7211825ed
+74b7efdf-0709-4102-8965-92d2ad32a10c
+62b31309-5c67-41f8-b431-0e0f8d4ee90c
+b559b4a1-d9fe-41cf-9710-6b2f74de3712
+13dcae3e-4dc6-441b-9a27-a01e0407c95d
+62b31309-5c67-41f8-b431-0e0f8d4ee90c
+74b7efdf-0709-4102-8965-92d2ad32a10c
+b559b4a1-d9fe-41cf-9710-6b2f74de3712
+62b31309-5c67-41f8-b431-0e0f8d4ee90c
+7e127594-436e-44e4-9bf3-f1f7211825ed
+74b7efdf-0709-4102-8965-92d2ad32a10c
+62b31309-5c67-41f8-b431-0e0f8d4ee90c
+13dcae3e-4dc6-441b-9a27-a01e0407c95d
+0dfe8086-9541-4d98-8d13-dc42b04833f4
+b559b4a1-d9fe-41cf-9710-6b2f74de3712
+0dfe8086-9541-4d98-8d13-dc42b04833f4
+13dcae3e-4dc6-441b-9a27-a01e0407c95d
+b559b4a1-d9fe-41cf-9710-6b2f74de3712
+7e127594-436e-44e4-9bf3-f1f7211825ed
+13dcae3e-4dc6-441b-9a27-a01e0407c95d
+62b31309-5c67-41f8-b431-0e0f8d4ee90c
+7e127594-436e-44e4-9bf3-f1f7211825ed

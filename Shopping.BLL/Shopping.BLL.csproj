@@ -45,6 +45,7 @@
     <Compile Include="Logic\CustomerLogic.cs" />
     <Compile Include="Logic\OrderLogic.cs" />
     <Compile Include="Logic\ProductLogic.cs" />
+    <Compile Include="Logic\TopProductsLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

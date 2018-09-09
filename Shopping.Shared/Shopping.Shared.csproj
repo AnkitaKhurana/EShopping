@@ -48,11 +48,13 @@
     <Compile Include="DTOs\CategoryDTO.cs" />
     <Compile Include="DTOs\CategoriesDTO.cs" />
     <Compile Include="DTOs\CustomerDTO.cs" />
+    <Compile Include="DTOs\HomePageDTO.cs" />
     <Compile Include="DTOs\OrderDTO.cs" />
     <Compile Include="DTOs\OrderLineDTO.cs" />
     <Compile Include="DTOs\ProductDTO.cs" />
     <Compile Include="DTOs\ProductsDTO.cs" />
     <Compile Include="DTOs\ProductVariantDTO.cs" />
+    <Compile Include="DTOs\TrendingDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

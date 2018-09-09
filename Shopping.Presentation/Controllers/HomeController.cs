@@ -1,4 +1,6 @@
 ﻿using Shopping.Presentation.App_Start;
+using Shopping.Shared.DTOs;
+using Shopping.BLL.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,8 @@ namespace Shopping.Presentation.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            return View();
+            HomePageDTO td = TopProductsLogic.HomePageProducts();
+            return View(td);
         }
 
         [AllowAnonymous]
