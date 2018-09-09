@@ -13,7 +13,7 @@ namespace Shopping.Presentation.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            List<OrderDTO> orderDTO = OrderLogic.Orders(new Guid(Session["id"].ToString()));
+            AllOrdersDTO orderDTO = OrderLogic.Orders(new Guid(Session["id"].ToString()));
             return View(orderDTO);
         }
 

@@ -12,18 +12,37 @@
     @foreach (var order in Model.Orders)
     {
     <dl class="dl-horizontal">
-        <dt>
-            @order.Id;
-        </dt>
 
+        Total Amout :
         <dd>
             @order.TotalAmount;
         </dd>
 
+        Order Staus:
         <dt>
             @order.OrderStatus;
         </dt>
-       @Html.EditorFor(order.order)
+
+        Products:
+        @for (int i = 0; i < order.orders.Count; i++)
+        {
+            <dt>
+                Product Name:
+            </dt>
+
+            <dt>
+                @order.orders[i].ProductName
+            </dt>
+            <dt>
+                Quanity:
+            </dt>
+            
+            <dd>
+                @order.orders[i].Quantity
+            </dd>
+
+        }
+        @*@Html.EditorFor(x => (x.Orders.FirstOrDefault(y => y.Id == order.Id).orders))*@
 
     </dl>
     }

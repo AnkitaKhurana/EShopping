@@ -224,6 +224,7 @@
     <Content Include="Views\Shared\EditorTemplates\Product.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Place.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\OrderLine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

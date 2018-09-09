@@ -8,7 +8,7 @@ namespace Shopping.Shared.DTOs
 {
     public class AllOrdersDTO
     {
-        AllOrdersDTO()
+        public AllOrdersDTO()
         {
             this.Orders = new List<OrderDTO>();
         }

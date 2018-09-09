@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Constants\ErrorMessages.cs" />
+    <Compile Include="DTOs\AllOrdersDTO.cs" />
     <Compile Include="DTOs\CartDTO.cs" />
     <Compile Include="DTOs\CartItemDTO.cs" />
     <Compile Include="DTOs\CartLineDTO.cs" />

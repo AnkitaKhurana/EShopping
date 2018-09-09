@@ -33,7 +33,8 @@ namespace Shopping.DAL.Data
                             Id = productRow.orderLines.Id,
                             OrderId = productRow.orderLines.OrderId,
                             ProductId = productRow.orderLines.ProductId,
-                            Quantity = productRow.orderLines.Quantity
+                            Quantity = productRow.orderLines.Quantity,
+                            ProductName = productRow.orderLines.Product.Name
 
                         });
                     }
@@ -81,7 +82,7 @@ namespace Shopping.DAL.Data
                         {
                             Id = Guid.NewGuid(),
                             Quantity = row.cartItem.Quantity,
-                            ProductId = row.cartItem.ProductId
+                            ProductId = row.cartItem.ProductId                            
                         };
                         db.OrderLines.Add(orderLine);
                         order.OrderLines.Add(orderLine);
@@ -94,6 +95,7 @@ namespace Shopping.DAL.Data
                             OrderId = orderLine.OrderId,
                             ProductId = orderLine.ProductId,
                             Quantity = orderLine.Quantity,
+                            ProductName = orderLine.Product.Name
 
                         });
 

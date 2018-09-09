@@ -1,0 +1,43 @@
+﻿@model Shopping.Shared.DTOs.OrderLineDTO
+
+@{
+    ViewBag.Title = "OrderLine";
+}
+
+<h2>OrderLine</h2>
+
+<div>
+    <h4>OrderLineDTO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.OrderId)
+        </dd>*@
+        Product Name : 
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        Quanity:
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+    </dl>
+</div>
+<p>
+   
+</p>
