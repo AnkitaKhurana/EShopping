@@ -95,7 +95,7 @@ namespace Shopping.DAL.Data
                             OrderId = orderLine.OrderId,
                             ProductId = orderLine.ProductId,
                             Quantity = orderLine.Quantity,
-                            ProductName = orderLine.Product.Name
+                            ProductName = orderLine.Product.Name                            
 
                         });
 

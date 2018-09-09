@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Constants\ErrorMessages.cs" />
     <Compile Include="DTOs\AllOrdersDTO.cs" />
     <Compile Include="DTOs\CartDTO.cs" />

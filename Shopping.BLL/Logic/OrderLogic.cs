@@ -29,6 +29,8 @@ namespace Shopping.BLL.Logic
             try
             {
                 OrderDTO saved = OrderData.Place(CustomerId);
+                // Add asyn update topProducts                
+                TopProductsData.UpdateTopProducts(saved);
                 return saved;
             }
             catch (Exception)

@@ -47,12 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Data\CartData.cs" />
     <Compile Include="Data\CategoryData.cs" />
     <Compile Include="Data\CustomerData.cs" />
     <Compile Include="Data\OrderData.cs" />
     <Compile Include="Data\ProductData.cs" />
+    <Compile Include="Data\TopProductsData.cs" />
     <Compile Include="Map\CartMapping.cs" />
     <Compile Include="Map\CustomerMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
