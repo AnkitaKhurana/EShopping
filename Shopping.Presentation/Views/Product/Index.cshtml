@@ -1,4 +1,5 @@
-﻿@model Shopping.Shared.DTOs.ProductsDTO
+﻿@using Shopping.Shared.DTOs
+@model Shopping.Presentation.ViewModels.ProductFilters
 
 @{
     ViewBag.Title = "Index";
@@ -13,46 +14,64 @@
     @using (Html.BeginForm())
     {
     <p>
-        
+
         Find by name: @Html.TextBox("searchString", ViewBag.searchString as string)
+
+        Find by Category:
+        @{var lookupItem = Model.categories.categories;}
+        @Html.DropDownListFor(m => m.categories.categories, lookupItem.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }), "-- All --", new { @class = "form-control" })
+
+
+        @*@Html.DropDownListFor(m => m.categories.categories, new SelectList(Model.categories.categories, "Name", "Name"))*@
 
         <input type="submit" value="Search" />
     </p>
     }
 
-    @foreach (var product in Model.Products)
+    @foreach (var product in Model.productsDTOs.Products)
     {
-        <dl class="dl-horizontal">
+    <dl class="dl-horizontal">
 
-            Price :
-            <dd>
-                @product.Price;
-            </dd>
+        Price :
+        <dd>
+            @product.Price;
+        </dd>
 
-            name:
+        name:
+        <dt>
+            @product.Name
+        </dt>
+        Category:
+        <dt>
+            @product.Category.Name
+        </dt>
+
+        Variants:
+        @for (int i = 0; i < product.Variants.Count; i++)
+        {
             <dt>
-                @product.Name
+                Variant:
             </dt>
-            Category:
+
             <dt>
-                @product.Category.Name
+                @product.Variants[i]
+
             </dt>
 
-            Variants:
-            @for (int i = 0; i < product.Variants.Count; i++)
-            {
-                <dt>
-                    Variant:
-                </dt>
+        }
 
-                <dt>
-                    @product.Variants[i]
+        @Html.ActionLink("Add To Cart", "AddToCart", "Cart", new { product = product.Id }, null);
 
-                </dt>
 
-            }
+        @*@using (Html.BeginForm("AddToCart", "Cart", new { product = product.Id }))
+        {
+            <p>
+                <input type="submit" value="Cart" />
+            </p>
+        }*@
 
-        </dl>
+
+    </dl>
     }
 
 </div>

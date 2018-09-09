@@ -68,7 +68,7 @@ namespace Shopping.DAL.Data
         }
 
 
-        public static CartDTO Edit(Guid CustomerId, Guid ProductId, int quantity)
+        public static CartDTO AddToCart(Guid CustomerId, Guid ProductId)
         {
             try
             {
@@ -77,27 +77,30 @@ namespace Shopping.DAL.Data
                 var alreadyExistingRecord = db.CartLines.Where(x => x.CustomerId == CustomerId && x.ProductId == ProductId);
                 if (alreadyExistingRecord.Count() != 0)
                 {
-                    alreadyExistingRecord.FirstOrDefault().Quantity = quantity ;
+                    alreadyExistingRecord.FirstOrDefault().Quantity ++ ;
                     db.SaveChanges();
                 }
                 else
                 {
                     CartLine cartLineDTO = new CartLine()
                     {
+                        Id = Guid.NewGuid(),
                         CustomerId = CustomerId,
                         ProductId = ProductId,
-                        Quantity = quantity
+                        Quantity = 1
                     };
 
                     db.CartLines.Add(cartLineDTO);
+                    db.SaveChanges();
                 }
                 cartDTO = Cart(CustomerId);
                 return cartDTO;
             }
-            catch
+            catch (Exception e)
             {
                 return null;
             }
-        }
+        }     
+      
     }
 }

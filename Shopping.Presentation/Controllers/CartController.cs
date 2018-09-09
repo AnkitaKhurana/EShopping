@@ -45,12 +45,22 @@ namespace Shopping.Presentation.Controllers
             if (ModelState.IsValid)
             {
                 CartDTO cartDTO = new CartDTO();
-                CartLogic.EditCart(new Guid(Session["id"].ToString()), new Guid("34a7fc5a-deb7-40eb-863d-1ced2d8dc5a8"), 6);
+                CartLogic.AddToCart(new Guid(Session["id"].ToString()), new Guid("34a7fc5a-deb7-40eb-863d-1ced2d8dc5a8"));
                 //CartLogic.EditCart(new Guid(Session["id"].ToString()), cart.Product.Id, cart.Quantity);
                 //CartLogic.EditCart(customerId, productId, quantity);      
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        
+        public ActionResult AddToCart(Guid? product)
+        {
+            CartDTO cartDTO = new CartDTO();
+            Guid id = new Guid(product.ToString());
+            CartLogic.AddToCart(new Guid(Session["id"].ToString()), id);
+
+            return RedirectToAction("Index");
         }
 
 

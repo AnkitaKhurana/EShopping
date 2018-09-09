@@ -172,6 +172,7 @@
     <Compile Include="ViewModels\CartLine.cs" />
     <Compile Include="ViewModels\Customer.cs" />
     <Compile Include="ViewModels\Product.cs" />
+    <Compile Include="ViewModels\ProductFilters.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

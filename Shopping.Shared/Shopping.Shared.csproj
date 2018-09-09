@@ -47,6 +47,7 @@
     <Compile Include="DTOs\CartItemDTO.cs" />
     <Compile Include="DTOs\CartLineDTO.cs" />
     <Compile Include="DTOs\CategoryDTO.cs" />
+    <Compile Include="DTOs\CategoriesDTO.cs" />
     <Compile Include="DTOs\CustomerDTO.cs" />
     <Compile Include="DTOs\OrderDTO.cs" />
     <Compile Include="DTOs\OrderLineDTO.cs" />

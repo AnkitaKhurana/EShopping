@@ -22,11 +22,11 @@ namespace Shopping.BLL.Logic
                 return null;
             }
         }
-        public static CartDTO EditCart(Guid customerId,Guid productId, int quantity)
+        public static CartDTO AddToCart(Guid customerId,Guid productId)
         {
             try
             {
-                CartDTO myCart = CartData.Edit(customerId,productId,quantity);
+                CartDTO myCart = CartData.AddToCart(customerId,productId);
                 return myCart;
             }
             catch (Exception)
@@ -34,5 +34,6 @@ namespace Shopping.BLL.Logic
                 return null;
             }
         }
+
     }
 }
