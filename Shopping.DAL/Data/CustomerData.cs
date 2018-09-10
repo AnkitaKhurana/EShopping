@@ -87,7 +87,7 @@ namespace Shopping.DAL.Data
             {
                
 
-                var foundCustomer = db.Customers.Find(customer.Id);
+                var foundCustomer = db.Customers.FirstOrDefault(x => x.Id == customer.Id);
                 foundCustomer.Address1 = customer.Address1;
                 foundCustomer.Address2 = customer.Address2;
                 foundCustomer.Address3 = customer.Address3;

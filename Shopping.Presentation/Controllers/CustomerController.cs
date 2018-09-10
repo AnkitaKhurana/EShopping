@@ -138,7 +138,7 @@ namespace Shopping.Presentation.Controllers
             }
             catch
             {
-                return View();
+                return View(customer);
             }
             
             return View(customer);
@@ -151,6 +151,7 @@ namespace Shopping.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Address1")] CustomerDTO customer)
         {
+            customer.Id = new Guid(Session["id"].ToString());
             if (ModelState.IsValid)
             {
                 CustomerLogic.Edit(customer);
