@@ -11,7 +11,7 @@ namespace Shopping.Presentation.App_Start
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
             var viewBag = filterContext.Controller.ViewBag;
-            viewBag.Message = "Welcome" + filterContext.HttpContext.Session["Role"];           
+            viewBag.Message = "Welcome " + filterContext.HttpContext.Session["Role"];           
         }
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {

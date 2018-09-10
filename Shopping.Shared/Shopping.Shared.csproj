@@ -55,6 +55,7 @@
     <Compile Include="DTOs\ProductsDTO.cs" />
     <Compile Include="DTOs\ProductVariantDTO.cs" />
     <Compile Include="DTOs\TrendingDTO.cs" />
+    <Compile Include="Exceptions\EmailAlreadyExists.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

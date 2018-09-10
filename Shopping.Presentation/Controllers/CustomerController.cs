@@ -1,6 +1,7 @@
 ﻿using Shopping.BLL.Logic;
 using Shopping.Presentation.CustomModelBinders;
 using Shopping.Shared.DTOs;
+using Shopping.Shared.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,12 +69,20 @@ namespace Shopping.Presentation.Controllers
         [AllowAnonymous]
         public ActionResult Register([ModelBinder(typeof(AddCustomerRole))] CustomerDTO customer)
         {
-            if (ModelState.IsValid)
+            try
             {
-                CustomerLogic.Register(customer);
-                return RedirectToAction("Login");
+                if (ModelState.IsValid)
+                {
+                    CustomerLogic.Register(customer);
+                    return RedirectToAction("Login");
+                }
+                return View(customer);
             }
-            return View(customer);
+            catch (EmailAlreadyExists error)
+            {
+                ViewBag.ErrorMessage = error.Message;
+                return View("Error");
+            }
         }
 
        // GET: Users/Details/

@@ -11,51 +11,49 @@
     .box {
         display: inline-block;
         margin: 7px;
-        
     }
+
     .textBox {
         background-color: #cccccc;
-    }  
-     
-
+    }
 </style>
 <div>
-    
+
     <hr />
     <dl class="dl-horizontal"></dl>
     @using (Html.BeginForm())
     {
-    <p>
+        <p>
 
 
-        
-        Find Product: @Html.TextBox("searchString", ViewBag.searchString as string)
-        <br>
-        Find by Category:
-        @{var lookupItem = Model.categories.categories;}
-       
+
+            Find Product: @Html.TextBox("searchString", ViewBag.searchString as string)
+            <br>
+            Find by Category:
+            @{var lookupItem = Model.categories.categories;}
+
             @Html.DropDownListFor(m => m.categories.categories, lookupItem.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }), "-- All --", new { @class = "form-control" })
-        
 
 
-        <input type="submit" value="Search" />
-    </p>
+
+            <input type="submit" value="Search" />
+        </p>
     }
 
     @foreach (var product in Model.productsDTOs.Products)
     {
-  
-    <div class="box">
-        <img src="@product.ImageURL" width="200px" height="200px" />
-        <div class="textBox">
-            <p>Name : @product.Name</p>
-            <P>Price : @product.Price</P>
-            @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null)
+
+        <div class="box">
+            <img src="@product.ImageURL" width="200px" height="200px" />
+            <div class="textBox">
+                <p>Name : @product.Name</p>
+                <P>Price : @product.Price</P>
+                @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null)
+            </div>
+
         </div>
-       
-    </div>
-        
-    
+
+
     }
 
 </div>

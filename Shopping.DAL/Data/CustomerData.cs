@@ -6,7 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Shopping.DAL.Map;
 using Shopping.Data;
-
+using System.Data.Entity.Infrastructure;
+using Shopping.Shared.Exceptions;
 
 namespace Shopping.DAL.Data
 {
@@ -22,6 +23,10 @@ namespace Shopping.DAL.Data
                 Customer dbCustomer = CustomerMapping.MapCustomer(customer);
                 db.Customers.Add(dbCustomer);
                 db.SaveChanges();
+            }
+            catch(DbUpdateException e)
+            {
+                throw new EmailAlreadyExists();
             }
             catch (Exception e)
             {

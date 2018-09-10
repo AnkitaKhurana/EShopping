@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,18 +24,19 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Products", "Index", "Product")</li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" >
+                <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Profile", "Details", "Customer")</li>
                     <li>@Html.ActionLink("My Cart", "Cart", "Cart")</li>
                     <li>@Html.ActionLink("My Orders", "Index", "Order")</li>
+                    <li>@Html.ActionLink("Admin Check", "Admin", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content">       
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="bottom">
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>

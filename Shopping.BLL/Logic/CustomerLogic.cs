@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Shopping.DAL.Data;
+using Shopping.Shared.Exceptions;
 
 namespace Shopping.BLL.Logic
 {
@@ -16,6 +17,10 @@ namespace Shopping.BLL.Logic
             {
                 bool saved = CustomerData.Register(customer);
                 return saved;
+            }
+            catch (EmailAlreadyExists)
+            {
+                throw new EmailAlreadyExists();
             }
             catch (Exception)
             {
