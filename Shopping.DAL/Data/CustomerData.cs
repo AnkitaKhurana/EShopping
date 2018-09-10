@@ -16,6 +16,11 @@ namespace Shopping.DAL.Data
         private static ShoppingDatabaseEntities db = new ShoppingDatabaseEntities();
 
 
+        /// <summary>
+        /// Register New Customer
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         public static bool Register(CustomerDTO customer)
         {
             try
@@ -24,7 +29,7 @@ namespace Shopping.DAL.Data
                 db.Customers.Add(dbCustomer);
                 db.SaveChanges();
             }
-            catch(DbUpdateException e)
+            catch (DbUpdateException e)
             {
                 throw new EmailAlreadyExists();
             }
@@ -36,6 +41,11 @@ namespace Shopping.DAL.Data
 
         }
 
+        /// <summary>
+        /// Find Customer
+        /// </summary>
+        /// <param name="customerDTO"></param>
+        /// <returns></returns>
         public static CustomerDTO Find(CustomerDTO customerDTO)
         {
             try
@@ -53,6 +63,6 @@ namespace Shopping.DAL.Data
                 return null;
             }
         }
-               
+
     }
 }

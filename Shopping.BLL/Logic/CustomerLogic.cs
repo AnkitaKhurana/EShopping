@@ -11,7 +11,12 @@ namespace Shopping.BLL.Logic
 {
     public class CustomerLogic
     {
-        public static bool Register (CustomerDTO customer)
+        /// <summary>
+        /// Register new customer
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public static bool Register(CustomerDTO customer)
         {
             try
             {
@@ -26,10 +31,15 @@ namespace Shopping.BLL.Logic
             {
                 return false;
             }
-            
+
         }
 
-        public static CustomerDTO Find (CustomerDTO customer)
+        /// <summary>
+        /// FInd Customer 
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public static CustomerDTO Find(CustomerDTO customer)
         {
             try
             {
@@ -40,6 +50,6 @@ namespace Shopping.BLL.Logic
             {
                 return null;
             }
-        } 
+        }
     }
 }

@@ -12,24 +12,29 @@ namespace Shopping.DAL.Data
     {
         private static ShoppingDatabaseEntities db = new ShoppingDatabaseEntities();
 
+        /// <summary>
+        /// Get All orders of customer 
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public static List<OrderDTO> Orders(Guid customerId)
         {
             try
             {
-                List<OrderDTO> orders = new List<OrderDTO>();
-                decimal sum = 0;
+                List<OrderDTO> orders = new List<OrderDTO>();                
                 var customerOrders = (from order in db.Orders
-                                        where order.CustomerId == customerId
-                                        select new { order }).ToList();
-                foreach(var row in customerOrders)
+                                      where order.CustomerId == customerId
+                                      select new { order }).ToList();
+                foreach (var row in customerOrders)
                 {
                     var products = (from orderLines in db.OrderLines
                                     where orderLines.OrderId == row.order.Id
                                     select new { orderLines }).ToList();
                     List<OrderLineDTO> allOrders = new List<OrderLineDTO>();
-                    foreach(var productRow in products)
+                    foreach (var productRow in products)
                     {
-                        allOrders.Add(new OrderLineDTO(){
+                        allOrders.Add(new OrderLineDTO()
+                        {
                             Id = productRow.orderLines.Id,
                             OrderId = productRow.orderLines.OrderId,
                             ProductId = productRow.orderLines.ProductId,
@@ -38,14 +43,14 @@ namespace Shopping.DAL.Data
 
                         });
                     }
-                    
+
                     orders.Add(new OrderDTO()
                     {
                         Id = row.order.Id,
                         OrderStatus = row.order.OrderStatus,
-                        CustomerId= row.order.CustomerId,
+                        CustomerId = row.order.CustomerId,
                         TotalAmount = row.order.TotalAmount,
-                        orders = allOrders                   
+                        orders = allOrders
 
                     });
                 }
@@ -60,7 +65,11 @@ namespace Shopping.DAL.Data
             }
         }
 
-
+        /// <summary>
+        /// Place order for customer 
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public static OrderDTO Place(Guid customerId)
         {
             try
@@ -72,7 +81,7 @@ namespace Shopping.DAL.Data
                 OrderDTO orderDTO = null;
                 if (cartjoin.Count() != 0)
                 {
-                    Order order = new Order() { Id = Guid.NewGuid()};
+                    Order order = new Order() { Id = Guid.NewGuid() };
                     order.CustomerId = customerId;
 
                     List<OrderLineDTO> orders = new List<OrderLineDTO>();
@@ -82,7 +91,7 @@ namespace Shopping.DAL.Data
                         {
                             Id = Guid.NewGuid(),
                             Quantity = row.cartItem.Quantity,
-                            ProductId = row.cartItem.ProductId                            
+                            ProductId = row.cartItem.ProductId
                         };
                         db.OrderLines.Add(orderLine);
                         order.OrderLines.Add(orderLine);
@@ -95,7 +104,7 @@ namespace Shopping.DAL.Data
                             OrderId = orderLine.OrderId,
                             ProductId = orderLine.ProductId,
                             Quantity = orderLine.Quantity,
-                            ProductName = orderLine.Product.Name                            
+                            ProductName = orderLine.Product.Name
 
                         });
 
@@ -117,7 +126,7 @@ namespace Shopping.DAL.Data
 
                 return orderDTO;
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }

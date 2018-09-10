@@ -10,6 +10,11 @@ namespace Shopping.BLL.Logic
 {
     public class CartLogic
     {
+        /// <summary>
+        /// Return Customer Cart 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static CartDTO CustomerCart(Guid id)
         {
             try
@@ -22,6 +27,13 @@ namespace Shopping.BLL.Logic
                 return null;
             }
         }
+
+        /// <summary>
+        /// Add Product to Customer Cart 
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="productId"></param>
+        /// <returns></returns>
         public static CartDTO AddToCart(Guid customerId, Guid productId)
         {
             try

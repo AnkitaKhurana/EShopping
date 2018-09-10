@@ -12,7 +12,12 @@ namespace Shopping.DAL.Data
     {
         private static ShoppingDatabaseEntities db = new ShoppingDatabaseEntities();
 
-
+        /// <summary>
+        /// Get All products 
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
         public static ProductsDTO AllProducts(string searchString, Guid? categoryId)
         {
 
@@ -67,7 +72,11 @@ namespace Shopping.DAL.Data
 
         }
 
-
+        /// <summary>
+        /// Get Product Details 
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
         public static ProductDTO ProductDetail(Guid productId)
         {
             try
@@ -76,8 +85,8 @@ namespace Shopping.DAL.Data
                 var product = (from p in db.Products
                                where p.Id == productId
                                select p).FirstOrDefault();
-               
-                if(product!=null)
+
+                if (product != null)
                 {
                     List<string> variantList = new List<string>();
 

@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomConfiguration.cs" />
     <Compile Include="Data\CartData.cs" />
     <Compile Include="Data\CategoryData.cs" />
     <Compile Include="Data\CustomerData.cs" />

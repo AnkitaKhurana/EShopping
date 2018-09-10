@@ -20,7 +20,7 @@ namespace Shopping.DAL.Map
                 {
                     Id = item.Id
                 };
-            }          
+            }
 
             return result;
         }

@@ -10,6 +10,10 @@ namespace Shopping.BLL.Logic
 {
     public class CategoryLogic
     {
+        /// <summary>
+        /// Get all categories
+        /// </summary>
+        /// <returns></returns>
         public static CategoriesDTO AllCategories()
         {
             try

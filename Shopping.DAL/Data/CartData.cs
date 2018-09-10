@@ -2,6 +2,7 @@
 using Shopping.Shared.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,11 @@ namespace Shopping.DAL.Data
         private static ShoppingDatabaseEntities db = new ShoppingDatabaseEntities();
 
 
+        /// <summary>
+        /// Get Cart of Customer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static CartDTO Cart(Guid id)
         {
             try
@@ -67,7 +73,12 @@ namespace Shopping.DAL.Data
             }
         }
 
-
+        /// <summary>
+        /// Add to Cart
+        /// </summary>
+        /// <param name="CustomerId"></param>
+        /// <param name="ProductId"></param>
+        /// <returns></returns>
         public static CartDTO AddToCart(Guid CustomerId, Guid ProductId)
         {
             try
@@ -77,7 +88,7 @@ namespace Shopping.DAL.Data
                 var alreadyExistingRecord = db.CartLines.Where(x => x.CustomerId == CustomerId && x.ProductId == ProductId);
                 if (alreadyExistingRecord.Count() != 0)
                 {
-                    alreadyExistingRecord.FirstOrDefault().Quantity ++ ;
+                    alreadyExistingRecord.FirstOrDefault().Quantity++;
                     db.SaveChanges();
                 }
                 else
@@ -100,7 +111,7 @@ namespace Shopping.DAL.Data
             {
                 return null;
             }
-        }     
-      
+        }
+
     }
 }

@@ -12,17 +12,21 @@ namespace Shopping.DAL.Data
     {
         private static ShoppingDatabaseEntities db = new ShoppingDatabaseEntities();
 
+        /// <summary>
+        /// Get top Categories from Analytics Table
+        /// </summary>
+        /// <returns></returns>
         public static ProductsDTO TopCategories()
         {
             try
             {
                 ProductsDTO products = new ProductsDTO();
                 var TopRows = (from product in db.TopProducts
-                                    select product).ToList();
+                               select product).ToList();
 
-                var orderByCategory = TopRows.OrderBy(x => x.ProductCategory.TotalSaleQuantity).ThenBy(y=>y.TotalSale);
-                
-                foreach(var row in orderByCategory)
+                var orderByCategory = TopRows.OrderBy(x => x.ProductCategory.TotalSaleQuantity).ThenBy(y => y.TotalSale);
+
+                foreach (var row in orderByCategory)
                 {
                     List<string> variantList = new List<string>();
                     foreach (var variant in row.Product.ProductVariants)
@@ -45,7 +49,7 @@ namespace Shopping.DAL.Data
                         },
                         Variants = variantList
 
-                    });                  
+                    });
                 }
                 return products;
             }
@@ -55,21 +59,25 @@ namespace Shopping.DAL.Data
             }
         }
 
+        /// <summary>
+        /// Get All Categories
+        /// </summary>
+        /// <returns></returns>
         public static CategoriesDTO AllCategories()
         {
             try
             {
                 CategoriesDTO categories = new CategoriesDTO();
                 var categoryRows = (from category in db.ProductCategories
-                                   select category);
+                                    select category);
 
-               foreach(var category in categoryRows)
+                foreach (var category in categoryRows)
                 {
                     categories.categories.Add(new CategoryDTO()
                     {
                         Id = category.Id,
                         Name = category.Name,
-                        TotalSaleQuantity = category.TotalSaleQuantity                        
+                        TotalSaleQuantity = category.TotalSaleQuantity
                     });
                 }
                 return categories;

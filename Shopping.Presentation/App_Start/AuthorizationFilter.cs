@@ -8,6 +8,10 @@ namespace Shopping.Presentation.App_Start
 {
     public class AuthorizationFilter : AuthorizeAttribute, IAuthorizationFilter
     {
+        /// <summary>
+        /// Function to Handle Authentication 
+        /// </summary>
+        /// <param name="filterContext"></param>
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             if (filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true)

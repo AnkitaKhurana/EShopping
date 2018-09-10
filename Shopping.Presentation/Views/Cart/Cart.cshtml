@@ -1,27 +1,23 @@
 ﻿@model Shopping.Presentation.ViewModels.Cart
 
 @{
-    ViewBag.Title = "Cart";
+                /**/
+
+                ViewBag.Title = "Cart";
 }
 
 <h2>My Cart</h2>
-
-
-
 @using (Html.BeginForm())
 {
 
     <div class="form-horizontal">
-
-        
         @Html.EditorFor(x => x.items)
     </div>
-    
     <div>
         <input type="button" value="Place Order" onclick="location.href='@Url.Action("Place", "Order")'" />
     </div>
 }
-    <br><br><br><br><br>
+<br><br><br><br><br>
 
 
 @section Scripts {

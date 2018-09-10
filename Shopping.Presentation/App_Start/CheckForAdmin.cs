@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace Shopping.Presentation.App_Start
 {
+    /// <summary>
+    /// Action Filter to handle Admin Check 
+    /// </summary>
     public class CheckForAdmin : FilterAttribute, IActionFilter
     {
         public void OnActionExecuted(ActionExecutedContext filterContext)
@@ -15,7 +18,7 @@ namespace Shopping.Presentation.App_Start
         }
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-           // Nothing to do 
+           // Nothing to do here
         }
     }
         

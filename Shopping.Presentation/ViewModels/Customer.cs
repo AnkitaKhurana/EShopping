@@ -33,7 +33,7 @@ namespace Shopping.Presentation.ViewModels
 
         [Required]
         [StringLength(18, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",ErrorMessage = "Password must be minimum eight characters and have at least one letter and one number")]
+        [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", ErrorMessage = "Password must be minimum eight characters and have at least one letter and one number")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

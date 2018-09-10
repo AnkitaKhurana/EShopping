@@ -8,11 +8,11 @@ namespace Shopping.Shared.DTOs
 {
     public class CartDTO
     {
-       
+
         public CartDTO()
         {
             Id = Guid.NewGuid();
-            items = new List<CartItemDTO>();            
+            items = new List<CartItemDTO>();
         }
         public Guid? Id { get; set; }
         public List<CartItemDTO> items;

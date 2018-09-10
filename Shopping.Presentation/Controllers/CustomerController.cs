@@ -4,6 +4,7 @@ using Shopping.Shared.DTOs;
 using Shopping.Shared.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -33,28 +34,41 @@ namespace Shopping.Presentation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-
         public ActionResult Login([Bind(Include = "Id,Email,Password")] CustomerDTO user)
         {
-            if (ModelState.IsValid)
+            try
             {
-               
-                CustomerDTO foundCustomer = CustomerLogic.Find(user);
-                if(foundCustomer != null)
+                if (ModelState.IsValid)
                 {
-                    Session["UserName"] = foundCustomer.Name;
-                    Session["Email"] = foundCustomer.Email;
-                    Session["Role"] = (foundCustomer.Role == 1 ? "Admin" : "Normal Customer");
-                    Session["Id"] = foundCustomer.Id;
-                    Session["Address1"] = foundCustomer.Address1;
-                    Session["Address2"] = foundCustomer.Address2;
-                    Session["Address3"] = foundCustomer.Address3;             
 
+                    CustomerDTO foundCustomer = CustomerLogic.Find(user);
+                    if (foundCustomer != null)
+                    {
+                        Session["UserName"] = foundCustomer.Name;
+                        Session["Email"] = foundCustomer.Email;
+                        Session["Role"] = (foundCustomer.Role == 1 ? "Admin" : "Normal Customer");
+                        Session["Id"] = foundCustomer.Id;
+                        Session["Address1"] = foundCustomer.Address1;
+                        Session["Address2"] = foundCustomer.Address2;
+                        Session["Address3"] = foundCustomer.Address3;
+
+                    }
+
+                    return RedirectToAction("Details");
                 }
-
-                return RedirectToAction("Details");
+                return View(user);
             }
-            return View(user);
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+                return View("Error");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+
         }
 
         // Register: Customer
@@ -85,15 +99,23 @@ namespace Shopping.Presentation.Controllers
             }
         }
 
-       // GET: Users/Details/
+        // GET: Customer/Details/
         public ActionResult Details()
-        {           
+        {
             if (Session["id"] == null)
             {
                 return HttpNotFound();
-            }           
+            }
             return View();
-        }      
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.Clear();
+            Response.Cookies.Clear();
+            return View("Login");
+        }
 
     }
 }

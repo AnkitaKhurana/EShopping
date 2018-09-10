@@ -12,6 +12,12 @@ namespace Shopping.DAL.Data
     {
         private static ShoppingDatabaseEntities db = new ShoppingDatabaseEntities();
 
+
+        /// <summary>
+        /// Update Analytics Table
+        /// </summary>
+        /// <param name="order"></param>
+        /// <returns></returns>
         public static bool UpdateTopProducts(OrderDTO order)
         {
             try
@@ -19,12 +25,14 @@ namespace Shopping.DAL.Data
                 var analytics = (from a in db.TopProducts
                                  select a).ToList();
                 var categories = (from c in db.ProductCategories
-                                  select c).ToList(); ;
+                                  select c).ToList();
+
                 foreach (var orderItem in order.orders)
                 {
                     db.Products.FirstOrDefault(x => x.Id == orderItem.ProductId).TotalQuantitySale += orderItem.Quantity;
                     db.SaveChanges();
                 }
+
                 var newOrdersPlaced = (from o in db.OrderLines
                                        where o.OrderId == order.Id
                                        select o).ToList();
@@ -35,11 +43,8 @@ namespace Shopping.DAL.Data
                     db.SaveChanges();
                 }
 
-
                 foreach (var category in categories)
                 {
-
-
                     var categoryRowsInAnalytics = analytics.Where(x => x.ProductCategoryId == category.Id);
                     if (categoryRowsInAnalytics.Count() < 5)
                     {
@@ -98,6 +103,10 @@ namespace Shopping.DAL.Data
 
         }
 
+        /// <summary>
+        /// Get top trending Products
+        /// </summary>
+        /// <returns></returns>
         public static ProductsDTO GetTopProducts()
         {
             try

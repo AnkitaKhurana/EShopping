@@ -17,22 +17,12 @@ namespace Shopping.Presentation.Controllers
             HomePageDTO td = TopProductsLogic.HomePageProducts();
             return View(td);
         }
+               
 
-        [AllowAnonymous]
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
+        /// <summary>
+        /// Admin page Check 
+        /// </summary>
+        /// <returns></returns>
         [CheckForAdmin]
         public ActionResult Admin()
         {

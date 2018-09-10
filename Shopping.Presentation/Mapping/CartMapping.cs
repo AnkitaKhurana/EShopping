@@ -1,4 +1,5 @@
-﻿using Shopping.Presentation.ViewModels;
+﻿
+using Shopping.Presentation.ViewModels;
 using Shopping.Shared.DTOs;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,16 @@ namespace Shopping.Presentation.Mapping
 {
     public class CartMapping
     {
+        /// <summary>
+        /// Map Cart to DTO
+        /// </summary>
+        /// <param name="cartDTO"></param>
+        /// <returns></returns>
         public static Cart MapCart(CartDTO cartDTO)
         {
             List<CartItem> items = new List<CartItem>();
-            
-            foreach(var item in cartDTO.items)
+
+            foreach (var item in cartDTO.items)
             {
                 var productItem = item.Product;
 
@@ -27,20 +33,19 @@ namespace Shopping.Presentation.Mapping
                     Category = productItem.Category,
                     Variants = new List<string>(productItem.Variants)
                 };
-                items.Add(new CartItem() {
+                items.Add(new CartItem()
+                {
                     Quantity = item.Quantity,
-                    Product =  product,
+                    Product = product,
                     Id = item.Id
                 });
             }
-
 
             Cart viewCart = new Cart()
             {
                 Id = cartDTO.Id,
                 items = items
             };
-
 
             return viewCart;
         }

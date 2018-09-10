@@ -11,15 +11,12 @@ namespace Shopping.Presentation.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: Product
-        //[allowanonymous]
-        //public actionresult index()
-        //{
-        //    productsdto products = productlogic.allproducts();
-        //    return view(products);
-        //}
-       
 
+        /// <summary>
+        /// Get All Products
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult Index(string searchString)
         {
@@ -51,14 +48,21 @@ namespace Shopping.Presentation.Controllers
                     products = ProductLogic.AllProductsInSearchAndCategory(searchString, new Guid(categoryId.ToString()));
             }
 
-            ProductFilters productFilters = new ProductFilters();
-            productFilters.productsDTOs = products;
-            productFilters.categories = CategoryLogic.AllCategories();
+            ProductFilters productFilters = new ProductFilters
+            {
+                productsDTOs = products,
+                categories = CategoryLogic.AllCategories()
+            };
 
             return View(productFilters);
-
         }
 
+
+        /// <summary>
+        /// Get Product Details
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public ActionResult Details(Guid? product)
         {
 
@@ -71,5 +75,5 @@ namespace Shopping.Presentation.Controllers
             return View();
 
         }
-    }    
+    }
 }

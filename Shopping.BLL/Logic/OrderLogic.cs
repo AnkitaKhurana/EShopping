@@ -6,6 +6,11 @@ namespace Shopping.BLL.Logic
 {
     public class OrderLogic
     {
+        /// <summary>
+        /// Get all orders of customer
+        /// </summary>
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
         public static AllOrdersDTO Orders(Guid CustomerId)
         {
             try
@@ -23,6 +28,11 @@ namespace Shopping.BLL.Logic
 
         }
 
+        /// <summary>
+        /// Place Order 
+        /// </summary>
+        /// <param name="CustomerId"></param>
+        /// <returns></returns>
         public static OrderDTO PlaceOrder(Guid CustomerId)
         {
             try
