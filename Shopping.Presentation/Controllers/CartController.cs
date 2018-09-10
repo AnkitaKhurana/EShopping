@@ -54,13 +54,12 @@ namespace Shopping.Presentation.Controllers
         }
 
         
-        public ActionResult AddToCart(Guid? product)
+        public ActionResult AddToCart(Guid product)
         {
             CartDTO cartDTO = new CartDTO();
             Guid id = new Guid(product.ToString());
             CartLogic.AddToCart(new Guid(Session["id"].ToString()), id);
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Cart");
         }
 
 

@@ -51,7 +51,7 @@ namespace Shopping.Presentation.Controllers
 
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
             return View(user);
         }
@@ -66,13 +66,12 @@ namespace Shopping.Presentation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-
         public ActionResult Register([ModelBinder(typeof(AddCustomerRole))] CustomerDTO customer)
         {
             if (ModelState.IsValid)
             {
                 CustomerLogic.Register(customer);
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
             return View(customer);
         }

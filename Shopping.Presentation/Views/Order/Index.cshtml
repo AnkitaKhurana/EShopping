@@ -4,6 +4,13 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+    .box {
+        background-color: seashell;
+        margin: 5px;
+    }
+
+</style>
 <h2>Index</h2>
 
 <div>
@@ -11,40 +18,46 @@
     <hr />
     @foreach (var order in Model.Orders)
     {
-    <dl class="dl-horizontal">
 
-        Total Amout :
-        <dd>
-            @order.TotalAmount;
-        </dd>
-
-        Order Staus:
-        <dt>
-            @order.OrderStatus;
-        </dt>
-
-        Products:
-        @for (int i = 0; i < order.orders.Count; i++)
-        {
-            <dt>
-                Product Name:
-            </dt>
+        <div class="box">
+        <dl class="dl-horizontal">
 
             <dt>
-                @order.orders[i].ProductName
+                Order Status:
             </dt>
-            <dt>
-                Quanity:
-            </dt>
-            
             <dd>
-                @order.orders[i].Quantity
+                @order.OrderStatus;
             </dd>
+            <dt>
+                Amount:
+            </dt>
 
-        }
-        @*@Html.EditorFor(x => (x.Orders.FirstOrDefault(y => y.Id == order.Id).orders))*@
+            <dd>
+                @order.TotalAmount;
+            </dd>
+            
+            @for (int i = 0; i < order.orders.Count; i++)
+            {
+                <dt>
+                    Product Name:
+                </dt>
 
-    </dl>
+                <dd>
+                    @order.orders[i].ProductName
+                </dd>
+                <dt>
+                    Quanity:
+                </dt>
+
+                <dd>
+                    @order.orders[i].Quantity
+                </dd>
+
+            }
+           
+
+        </dl>
+            </div>
     }
 </div>
 <p>

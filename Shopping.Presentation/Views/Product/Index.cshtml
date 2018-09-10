@@ -5,24 +5,38 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Products</h2>
+<style>
 
+    .box {
+        display: inline-block;
+        margin: 7px;
+        
+    }
+    .textBox {
+        background-color: #cccccc;
+    }  
+     
+
+</style>
 <div>
-    <h4>ProductsDTO</h4>
+    
     <hr />
     <dl class="dl-horizontal"></dl>
     @using (Html.BeginForm())
     {
     <p>
 
-        Find by name: @Html.TextBox("searchString", ViewBag.searchString as string)
 
+        
+        Find Product: @Html.TextBox("searchString", ViewBag.searchString as string)
+        <br>
         Find by Category:
         @{var lookupItem = Model.categories.categories;}
-        @Html.DropDownListFor(m => m.categories.categories, lookupItem.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }), "-- All --", new { @class = "form-control" })
+       
+            @Html.DropDownListFor(m => m.categories.categories, lookupItem.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }), "-- All --", new { @class = "form-control" })
+        
 
-
-        @*@Html.DropDownListFor(m => m.categories.categories, new SelectList(Model.categories.categories, "Name", "Name"))*@
 
         <input type="submit" value="Search" />
     </p>
@@ -30,52 +44,21 @@
 
     @foreach (var product in Model.productsDTOs.Products)
     {
-    <dl class="dl-horizontal">
-
-        Price :
-        <dd>
-            @product.Price;
-        </dd>
-
-        name:
-        <dt>
-            @product.Name
-        </dt>
-        Category:
-        <dt>
-            @product.Category.Name
-        </dt>
-
-        Variants:
-        @for (int i = 0; i < product.Variants.Count; i++)
-        {
-            <dt>
-                Variant:
-            </dt>
-
-            <dt>
-                @product.Variants[i]
-
-            </dt>
-
-        }
-        @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null);
-
-
-
-
-        @*@using (Html.BeginForm("AddToCart", "Cart", new { product = product.Id }))
-        {
-            <p>
-                <input type="submit" value="Cart" />
-            </p>
-        }*@
-
-
-    </dl>
+  
+    <div class="box">
+        <img src="@product.ImageURL" width="200px" height="200px" />
+        <div class="textBox">
+            <p>Name : @product.Name</p>
+            <P>Price : @product.Price</P>
+            @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null)
+        </div>
+       
+    </div>
+        
+    
     }
 
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("All Products", "Index")
 </p>

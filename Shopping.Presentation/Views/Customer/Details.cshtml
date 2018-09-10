@@ -4,11 +4,19 @@
 
 <h2>Details</h2>
 
-@Session["UserName"].ToString()
-@Session["Email"].ToString()
-@Session["Role"].ToString()
-@Session["Id"].ToString()
-@Session["Address1"].ToString()
+<div>
+    <dt>
 
-@*@Session["Address2"].ToString()
-@Session["Address3"].ToString()*@
+        @Session["UserName"].ToString()
+    </dt>
+    <dl>
+
+        @Session["Email"].ToString()
+    </dl>   
+   
+    <dl>
+        @Session["Address1"].ToString()
+    </dl>
+
+</div>
+

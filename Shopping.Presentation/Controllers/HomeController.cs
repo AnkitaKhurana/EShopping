@@ -32,6 +32,7 @@ namespace Shopping.Presentation.Controllers
 
             return View();
         }
+
         [CheckForAdmin]
         public ActionResult Admin()
         {

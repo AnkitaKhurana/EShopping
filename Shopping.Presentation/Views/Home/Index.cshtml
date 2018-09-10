@@ -4,22 +4,42 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<style>
+    .box {
+        display: inline-block
+    }
+</style>
 <div>
-    <h4>HomePageDTO</h4>
+    <h4>Have a look at our Trending Products!</h4>
     <hr />
     <dl class="dl-horizontal">
-      
+
         @for (int i = 0; i < Model.Trending.Count(); i++)
         {
-            <p>Category : @Model.Trending[i].Category.Name</p>
+            <h2>@Model.Trending[i].Category.Name</h2>
 
-            <p>rank :  @Model.Trending[i].Rank</p>
-            foreach(var product in  Model.Trending[i].TopProducts[0].Products)  {
-                <p>Name : @product.Name</p>
+            <p>Trending Rank :  @Model.Trending[i].Rank</p>
+
+
+            for (int productIndex = 0; productIndex < 5;)
+            {
+
+                <div class="box">
+                    <img src="@Model.Trending[i].TopProducts[0].Products[productIndex].ImageURL" width="200px" height="200px" />
+                    <p>Name : @Model.Trending[i].TopProducts[0].Products[productIndex].Name</p>
+                    <P>Price : @Model.Trending[i].TopProducts[0].Products[productIndex].Price</P>
+                </div>
+
+                if (i < 3)
+                {
+                    productIndex = productIndex + 2;
+                }
+                else
+                {
+                    productIndex++;
+                }
             }
-            
+
         }
 
     </dl>
@@ -28,5 +48,4 @@
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
 

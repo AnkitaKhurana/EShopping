@@ -4,23 +4,25 @@
     ViewBag.Title = "Cart";
 }
 
-<h2>Cart</h2>
+<h2>My Cart</h2>
 
 
 
 @using (Html.BeginForm())
 {
 
-<div class="form-horizontal">
-    <h4>Cart</h4>
-    <hr />
-    @Html.EditorFor(x => x.items)
-</div>
-}
+    <div class="form-horizontal">
 
-<div>
-    <input type="button" value="Place Order" onclick="location.href='@Url.Action("Place", "Order")'" />
-</div>
+        
+        @Html.EditorFor(x => x.items)
+    </div>
+    
+    <div>
+        <input type="button" value="Place Order" onclick="location.href='@Url.Action("Place", "Order")'" />
+    </div>
+}
+    <br><br><br><br><br>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
