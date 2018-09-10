@@ -16,10 +16,7 @@ namespace Shopping.BLL.Logic
             {
                 HomePageDTO homePageDTO = new HomePageDTO();
                 var OrderedList = TopProductsData.GetTopProducts().Products.OrderBy(x => x.Category.Id).ThenByDescending(cat => cat.TotalQuantitySale).ToList();
-                    
-                    //.OrderBy(x => x.Category.TotalSaleQuantity).ToList();
-               
-              
+                  
                 for(int j = 0; j < 6; j++)
                 {
                     TrendingDTO category = new TrendingDTO()
@@ -39,6 +36,7 @@ namespace Shopping.BLL.Logic
                     {
                         pt.Products.Add(sortedProducts[i]);//(OrderedList[(j * 5) + i]);
                     }
+                    category.TopProducts.Add(pt);
                     homePageDTO.Trending.Add(category);
                    
                 }

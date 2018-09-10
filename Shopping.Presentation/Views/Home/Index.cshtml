@@ -10,13 +10,16 @@
     <h4>HomePageDTO</h4>
     <hr />
     <dl class="dl-horizontal">
-
+      
         @for (int i = 0; i < Model.Trending.Count(); i++)
         {
             <p>Category : @Model.Trending[i].Category.Name</p>
 
             <p>rank :  @Model.Trending[i].Rank</p>
-
+            foreach(var product in  Model.Trending[i].TopProducts[0].Products)  {
+                <p>Name : @product.Name</p>
+            }
+            
         }
 
     </dl>
@@ -27,34 +30,3 @@
 </p>
 
 
-
-
-
-13dcae3e-4dc6-441b-9a27-a01e0407c95d
-0dfe8086-9541-4d98-8d13-dc42b04833f4
-0dfe8086-9541-4d98-8d13-dc42b04833f4
-7e127594-436e-44e4-9bf3-f1f7211825ed
-b559b4a1-d9fe-41cf-9710-6b2f74de3712
-0dfe8086-9541-4d98-8d13-dc42b04833f4
-7e127594-436e-44e4-9bf3-f1f7211825ed
-74b7efdf-0709-4102-8965-92d2ad32a10c
-62b31309-5c67-41f8-b431-0e0f8d4ee90c
-b559b4a1-d9fe-41cf-9710-6b2f74de3712
-13dcae3e-4dc6-441b-9a27-a01e0407c95d
-62b31309-5c67-41f8-b431-0e0f8d4ee90c
-74b7efdf-0709-4102-8965-92d2ad32a10c
-b559b4a1-d9fe-41cf-9710-6b2f74de3712
-62b31309-5c67-41f8-b431-0e0f8d4ee90c
-7e127594-436e-44e4-9bf3-f1f7211825ed
-74b7efdf-0709-4102-8965-92d2ad32a10c
-62b31309-5c67-41f8-b431-0e0f8d4ee90c
-13dcae3e-4dc6-441b-9a27-a01e0407c95d
-0dfe8086-9541-4d98-8d13-dc42b04833f4
-b559b4a1-d9fe-41cf-9710-6b2f74de3712
-0dfe8086-9541-4d98-8d13-dc42b04833f4
-13dcae3e-4dc6-441b-9a27-a01e0407c95d
-b559b4a1-d9fe-41cf-9710-6b2f74de3712
-7e127594-436e-44e4-9bf3-f1f7211825ed
-13dcae3e-4dc6-441b-9a27-a01e0407c95d
-62b31309-5c67-41f8-b431-0e0f8d4ee90c
-7e127594-436e-44e4-9bf3-f1f7211825ed
