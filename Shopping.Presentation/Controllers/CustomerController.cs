@@ -78,6 +78,8 @@ namespace Shopping.Presentation.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -117,5 +119,46 @@ namespace Shopping.Presentation.Controllers
             return View("Login");
         }
 
+
+
+        public ActionResult Edit(Guid? id)
+        {
+            CustomerDTO customer = new CustomerDTO();            
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                customer = CustomerLogic.FindId(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+            }
+            catch
+            {
+                return View();
+            }
+            
+            return View(customer);
+
+        }
+
+     
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Address1")] CustomerDTO customer)
+        {
+            if (ModelState.IsValid)
+            {
+                CustomerLogic.Edit(customer);
+                return RedirectToAction("Place", "Order");
+            }
+            return RedirectToAction("Details");
+        }
+
+       
     }
 }

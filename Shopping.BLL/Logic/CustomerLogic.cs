@@ -51,5 +51,31 @@ namespace Shopping.BLL.Logic
                 return null;
             }
         }
+
+        public static CustomerDTO FindId(Guid? customer)
+        {
+            try
+            {
+                CustomerDTO foundCustomer = CustomerData.FindId(customer);
+                return foundCustomer;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public static CustomerDTO Edit(CustomerDTO customer)
+        {
+            try
+            {
+                CustomerDTO c = CustomerData.Edit(customer);
+                return c;
+            }
+            catch 
+            {
+                return null;
+            }
+        }
     }
 }

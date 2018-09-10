@@ -17,6 +17,11 @@ namespace Shopping.Presentation.Controllers
             return View(orderDTO);
         }
 
+        public ActionResult Confirm()
+        {
+            return RedirectToAction("Edit","Customer",new { id=Session["id"]});
+        }
+
         // GET: PlaceOrder
         public ActionResult Place()
         {

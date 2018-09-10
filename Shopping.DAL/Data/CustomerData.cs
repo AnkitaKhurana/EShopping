@@ -63,6 +63,46 @@ namespace Shopping.DAL.Data
                 return null;
             }
         }
+        public static CustomerDTO FindId(Guid? id)
+        {
+            try
+            {
+                var customerFound = db.Customers.FirstOrDefault(x => x.Id == id);
+                if (customerFound != null)
+                {
+                    CustomerDTO resultCustomer = CustomerMapping.MapCustomer(customerFound);
+                    return resultCustomer;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
 
+        public static CustomerDTO Edit(CustomerDTO customer)
+        {
+            try
+            {
+               
+
+                var foundCustomer = db.Customers.Find(customer.Id);
+                foundCustomer.Address1 = customer.Address1;
+                foundCustomer.Address2 = customer.Address2;
+                foundCustomer.Address3 = customer.Address3;
+                db.SaveChanges();
+                var foundCustomeragin = db.Customers.Find(customer.Id);
+                CustomerDTO dbCustomer = CustomerMapping.MapCustomer(foundCustomeragin);
+                return dbCustomer;
+            }
+           
+            catch (Exception e)
+            {
+                return null;
+            }
+           
+
+        }
     }
 }
