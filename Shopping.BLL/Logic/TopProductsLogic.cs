@@ -15,20 +15,21 @@ namespace Shopping.BLL.Logic
             try
             {
                 HomePageDTO homePageDTO = new HomePageDTO();
-                var OrderedList = TopProductsData.GetTopProducts();
+                var OrderedList = TopProductsData.GetTopProducts().Products.OrderBy(x => x.Category.TotalSaleQuantity).ThenBy(y=>y.TotalQuantitySale).ToList();
+                var count = OrderedList.Count();
               
                 for(int j = 0; j < 6; j++)
                 {
                     TrendingDTO category = new TrendingDTO()
                     {
-                        Category = OrderedList.Products[j].Category,
+                        Category = OrderedList[j*(5)].Category,
                         Rank = j+1
                     };
 
                     ProductsDTO pt = new ProductsDTO();
                     for (int i = 0; i < 5; i++)
                     {
-                        pt.Products.Add(OrderedList.Products[(j * 5) + i]);
+                        pt.Products.Add(OrderedList[(j * 5) + i]);
                     }
                     homePageDTO.Trending.Add(category);
                    
@@ -36,7 +37,7 @@ namespace Shopping.BLL.Logic
                
                 return homePageDTO;
             }
-            catch (Exception)
+            catch (Exception  e)
             {
                 return null;
             }
