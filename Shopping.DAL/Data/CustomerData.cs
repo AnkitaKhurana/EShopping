@@ -84,8 +84,7 @@ namespace Shopping.DAL.Data
         public static CustomerDTO Edit(CustomerDTO customer)
         {
             try
-            {
-               
+            {              
 
                 var foundCustomer = db.Customers.FirstOrDefault(x => x.Id == customer.Id);
                 foundCustomer.Address1 = customer.Address1;
