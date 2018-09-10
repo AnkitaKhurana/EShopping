@@ -15,8 +15,10 @@ namespace Shopping.BLL.Logic
             try
             {
                 HomePageDTO homePageDTO = new HomePageDTO();
-                var OrderedList = TopProductsData.GetTopProducts().Products.OrderBy(x => x.Category.TotalSaleQuantity).ThenBy(y=>y.TotalQuantitySale).ToList();
-                var count = OrderedList.Count();
+                var OrderedList = TopProductsData.GetTopProducts().Products.OrderBy(x => x.Category.Id).ThenByDescending(cat => cat.TotalQuantitySale).ToList();
+                    
+                    //.OrderBy(x => x.Category.TotalSaleQuantity).ToList();
+               
               
                 for(int j = 0; j < 6; j++)
                 {
@@ -26,10 +28,16 @@ namespace Shopping.BLL.Logic
                         Rank = j+1
                     };
 
+                    List<ProductDTO> temp = new List<ProductDTO>();
+                    for (int i = 0; i < 5; i++)
+                    {
+                        temp.Add(OrderedList[(j * 5) + i]);
+                    }
+                    var sortedProducts = temp.OrderByDescending(x => x.TotalQuantitySale).ToList();
                     ProductsDTO pt = new ProductsDTO();
                     for (int i = 0; i < 5; i++)
                     {
-                        pt.Products.Add(OrderedList[(j * 5) + i]);
+                        pt.Products.Add(sortedProducts[i]);//(OrderedList[(j * 5) + i]);
                     }
                     homePageDTO.Trending.Add(category);
                    
