@@ -58,6 +58,7 @@
     <Compile Include="DTOs\ProductVariantDTO.cs" />
     <Compile Include="DTOs\TrendingDTO.cs" />
     <Compile Include="Exceptions\EmailAlreadyExists.cs" />
+    <Compile Include="Exceptions\NoSuchUserFound.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

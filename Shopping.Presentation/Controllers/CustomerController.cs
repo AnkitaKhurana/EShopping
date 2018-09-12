@@ -56,6 +56,11 @@ namespace Shopping.Presentation.Controllers
                     return Redirect(Request.QueryString["RedirectResult"]);
                 }
                 return RedirectToAction("Register");
+            }          
+            catch (NoSuchUserFound error)
+            {
+                ViewBag.ErrorMessage = error.Message;
+                return View("Error");
             }
             catch (RetryLimitExceededException /* dex */)
             {
@@ -137,8 +142,7 @@ namespace Shopping.Presentation.Controllers
             catch
             {
                 return View(customer);
-            }
-            
+            }            
             return View(customer);
 
         }

@@ -20,61 +20,13 @@ namespace Shopping.Presentation.Controllers
         /// <param name="searchString"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        public ActionResult Index(int? page=1)
+        public ActionResult Index(int? page = 1)
         {
-            ProductsDTO  products = ProductLogic.AllProducts();            
+            ProductsDTO products = ProductLogic.AllProducts();
             int pageSize = Constants.PageSize;
             int pageNumber = (page ?? 1);
-            return View(products.Products.ToPagedList(pageNumber, pageSize));            
+            return View(products.Products.ToPagedList(pageNumber, pageSize));
         }
-
-
-
-
-        //public ActionResult Index(string searchString)
-        //{
-        //    string category = null;
-        //    Guid? categoryId = null;
-        //    if (Request.Form["categories.categories"] != null)
-        //    {
-        //        category = Request.Form["categories.categories"].ToString();
-        //        if (!String.IsNullOrEmpty(category))
-        //        {
-        //            categoryId = new Guid(category);
-        //        }
-        //    }
-
-        //    ProductsDTO products;
-        //    if (String.IsNullOrEmpty(searchString))
-        //    {
-        //        if (!categoryId.HasValue)
-        //            products = ProductLogic.AllProducts();
-        //        else
-        //            products = ProductLogic.AllProductsInCategory(new Guid(categoryId.ToString()));
-        //    }
-        //    else
-        //    {
-        //        if (!categoryId.HasValue)
-        //            products = ProductLogic.AllProductsInSearch(searchString);
-        //        else
-        //            products = ProductLogic.AllProductsInSearchAndCategory(searchString, new Guid(categoryId.ToString()));
-        //    }
-
-        //    ProductFilter productFilters = new ProductFilter
-        //    {
-        //        productsDTOs = products,
-        //        categories = CategoryLogic.AllCategories()
-        //    };
-        //    HomePageDTO homePageDTO = new HomePageDTO()
-        //    {
-        //        productFilter = productFilters,
-        //        Trending = null
-        //    };
-        //    return View(homePageDTO);
-
-        //}
-
-
 
 
         /// <summary>
@@ -96,18 +48,18 @@ namespace Shopping.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SearchResults(string searchString, int? page = 1)
+        public ActionResult SearchResults(string searchString, string category, int? page = 1)
         {
-            string category = null;
+
             Guid? categoryId = null;
-            if (Request.Form["category"] != null)
+
+            if (!String.IsNullOrEmpty(category))
             {
-                category = Request.Form["category"].ToString();
-                if (!String.IsNullOrEmpty(category))
-                {
-                    categoryId = new Guid(category);
-                }
+                categoryId = new Guid(category);
             }
+
+            ViewBag.category = category;
+            ViewBag.searchString = searchString;
 
             ProductsDTO products;
             if (String.IsNullOrEmpty(searchString))
@@ -138,8 +90,8 @@ namespace Shopping.Presentation.Controllers
             int pageSize = Constants.PageSize;
             int pageNumber = (page ?? 1);
             return View(homePageDTO.productFilter.productsDTOs.Products.ToPagedList(pageNumber, pageSize));
-            return View(homePageDTO);
-           
+
+
         }
     }
 }

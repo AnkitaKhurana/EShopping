@@ -26,10 +26,20 @@ namespace Shopping.DAL.Data
             try
             {
                 Customer dbCustomer = CustomerMapping.MapCustomer(customer);
-                db.Customers.Add(dbCustomer);
-                db.SaveChanges();
+                var alreadyExistsCheck = db.Customers.Find(customer.Id);
+                if (alreadyExistsCheck != null)
+                {
+                    db.Customers.Add(dbCustomer);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    throw new EmailAlreadyExists();
+                }
+                return true;
+
             }
-            catch (DbUpdateException e)
+            catch (EmailAlreadyExists)
             {
                 throw new EmailAlreadyExists();
             }
@@ -37,8 +47,7 @@ namespace Shopping.DAL.Data
             {
                 return false;
             }
-            return true;
-
+           
         }
 
         /// <summary>
@@ -56,7 +65,14 @@ namespace Shopping.DAL.Data
                     CustomerDTO resultCustomer = CustomerMapping.MapCustomer(customerFound);
                     return resultCustomer;
                 }
-                return null;
+                else
+                {
+                    throw new NoSuchUserFound();
+                }
+            }
+            catch (NoSuchUserFound)
+            {
+                throw new NoSuchUserFound();
             }
             catch (Exception e)
             {
@@ -73,7 +89,15 @@ namespace Shopping.DAL.Data
                     CustomerDTO resultCustomer = CustomerMapping.MapCustomer(customerFound);
                     return resultCustomer;
                 }
-                return null;
+                else
+                {
+                    throw new NoSuchUserFound();
+                }             
+                
+            }
+            catch(NoSuchUserFound)
+            {
+                throw new NoSuchUserFound();
             }
             catch (Exception e)
             {
@@ -84,7 +108,7 @@ namespace Shopping.DAL.Data
         public static CustomerDTO Edit(CustomerDTO customer)
         {
             try
-            {              
+            {
 
                 var foundCustomer = db.Customers.FirstOrDefault(x => x.Id == customer.Id);
                 foundCustomer.Address1 = customer.Address1;
@@ -95,12 +119,12 @@ namespace Shopping.DAL.Data
                 CustomerDTO dbCustomer = CustomerMapping.MapCustomer(foundCustomeragin);
                 return dbCustomer;
             }
-           
+
             catch (Exception e)
             {
                 return null;
             }
-           
+
 
         }
     }

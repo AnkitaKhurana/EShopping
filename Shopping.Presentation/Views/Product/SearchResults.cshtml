@@ -4,42 +4,50 @@
 @{
     ViewBag.Title = "SearchResults";
 }
+<style>
 
-<h2>SearchResults</h2>
+    .box {
+        display: inline-block;
+        margin: 7px;
+    }
+
+    .textBox {
+        background-color: #cccccc;
+    }
+</style>
+<h2>Seach Result</h2>
 
 <div>
-    <h4>ProductsDTO</h4>
+    <h4>Products Found</h4>
     <hr />
     <dl class="dl-horizontal">
-        @if (Model != null)
+        @if (Model.Count() != 0)
         {
             foreach (var product in Model)
             {
-
-                <div class="box">
-                    <img src="@product.ImageURL" width="200px" height="200px" />
-                    <div class="textBox">
-                        <p>Name : @product.Name</p>
-                        <P>Price : @product.Price</P>
-                        @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null)
+                <a href=@Url.Action("Details", "Product",new { product = product.Id },null)>
+                    <div class="box">
+                        <img src="@product.ImageURL" width="200px" height="200px" />
+                        <div class="textBox">
+                            <h3>@product.Name</h3>
+                            <h4>@product.Price &#x20B9;</h4>
+                        </div>
                     </div>
-
-                </div>
+                </a>
             }
             <br />
             <text>Page : </text>@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) <text>of</text> @Model.PageCount
 
             @Html.PagedListPager(Model, page => Url.Action("SearchResults",
-                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                new { page, category = ViewBag.category, searchString = ViewBag.SearchString }))
         }
         else
         {
-            <p>Nope</p>
+            <p>No Results Found!</p>
         }
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Find more Products here!", "Index")
 </p>

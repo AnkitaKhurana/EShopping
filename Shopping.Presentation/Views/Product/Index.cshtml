@@ -27,16 +27,17 @@
 
     @foreach (var product in Model)
     {
-
-        <div class="box">
-            <img src="@product.ImageURL" width="200px" height="200px" />
-            <div class="textBox">
-                <p>Name : @product.Name</p>
-                <P>Price : @product.Price</P>
-                @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null)
+    <div class="box">
+        <a href=@Url.Action("Details", "Product",new { product = product.Id },null)>
+            <div class="box">
+                <img src="@product.ImageURL" width="200px" height="200px" />
+                <div class="textBox">
+                    <h3>@product.Name</h3>
+                    <h4>@product.Price &#x20B9;</h4>
+                </div>
             </div>
-        </div>
-
+        </a>
+    </div>
     }
 
 </div>

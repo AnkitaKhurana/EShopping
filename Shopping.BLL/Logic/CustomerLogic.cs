@@ -46,6 +46,10 @@ namespace Shopping.BLL.Logic
                 CustomerDTO foundCustomer = CustomerData.Find(customer);
                 return foundCustomer;
             }
+            catch (NoSuchUserFound)
+            {
+                throw new NoSuchUserFound();
+            }
             catch (Exception)
             {
                 return null;
@@ -58,6 +62,10 @@ namespace Shopping.BLL.Logic
             {
                 CustomerDTO foundCustomer = CustomerData.FindId(customer);
                 return foundCustomer;
+            }
+            catch (NoSuchUserFound)
+            {
+                throw new NoSuchUserFound();
             }
             catch (Exception)
             {

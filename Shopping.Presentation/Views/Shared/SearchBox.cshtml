@@ -1,19 +1,37 @@
 ﻿@using Shopping.Shared.DTOs
 @using Shopping.BLL.Logic
 
+<style>
+    .searchPanel {
+        display: inline-flex;
+    }
+    .outerBox{
+       margin:2px
+    }
+    .dropdown{
+        margin:2px;
+    }
+    .searchBox {
+        margin: 2px;
+    }
+    .searchButton {
+        margin-left: 20px;
+    }
+</style>
 
-@using (Html.BeginForm("SearchResults", "Product"))
+<div class="outerBox">
+@using (Html.BeginForm("SearchResults", "Product",FormMethod.Get, new { @class = "searchPanel" }))
 {
 <p>
-       @Html.TextBox("searchString", ViewBag.searchString as string, new { placeholder = "Search Product" })
+       @Html.TextBox("searchString", ViewBag.searchString as string, new { placeholder = "Search Product", @class= "form-control searchBox" })
 </p>
     <p>
         @{var lookupItem = CategoryLogic.AllCategories().categories;}
-        @Html.DropDownList("category", lookupItem.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString()}), "All Categories", new { @class = "form-control" })
+        @Html.DropDownList("category", lookupItem.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString()}), "All Categories", new { @class = "form-control dropdown" })
     </p>
     <p>
-        <button type="submit" value="Submit">Search Product</button>
-
-        @*<input; type="submit" value="Search Product" />*@
+        <button type="submit" value="Submit" class="btn btn-success searchButton">&rArr;</button>
     </p>
 }
+
+</div>
