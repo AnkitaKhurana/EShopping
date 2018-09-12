@@ -28,6 +28,7 @@ namespace Shopping.Presentation.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
+            ViewBag.Error = Request.QueryString["Error"];
             return View();
         }
 

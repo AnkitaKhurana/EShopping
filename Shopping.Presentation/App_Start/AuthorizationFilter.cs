@@ -24,12 +24,23 @@ namespace Shopping.Presentation.App_Start
             // Check for authorization  
             if (HttpContext.Current.Session["UserName"] == null)
             {
-               
+                string ErrorMessage = "";
+                if (filterContext.HttpContext.Request.Url.GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped) == null)
+                {
+                    ErrorMessage = "";
+                }
+                else
+                {
+                    ErrorMessage = "You must be logged in!";
+                }
+
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
                     { "controller", "Customer" },
                     { "action", "Login" },
-                    { "RedirectResult", filterContext.HttpContext.Request.Url.GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped) }
+                    { "RedirectResult", filterContext.HttpContext.Request.Url.GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped) } ,
+                    {"Error",ErrorMessage }
+                    
                 });
 
                 
