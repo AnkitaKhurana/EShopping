@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Shopping.Presentation.ViewModels;
+using PagedList;
+using Shopping.Shared.Constants;
 
 namespace Shopping.Presentation.Controllers
 {
@@ -18,11 +20,12 @@ namespace Shopping.Presentation.Controllers
         /// <param name="searchString"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(int? page=1)
         {
-            ProductsDTO  products = ProductLogic.AllProducts();
-            return View(products);
-
+            ProductsDTO  products = ProductLogic.AllProducts();            
+            int pageSize = Constants.PageSize;
+            int pageNumber = (page ?? 1);
+            return View(products.Products.ToPagedList(pageNumber, pageSize));            
         }
 
 
@@ -93,7 +96,7 @@ namespace Shopping.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SearchResults(string searchString)
+        public ActionResult SearchResults(string searchString, int? page = 1)
         {
             string category = null;
             Guid? categoryId = null;
@@ -132,13 +135,11 @@ namespace Shopping.Presentation.Controllers
                 productFilter = productFilters,
                 Trending = null
             };
+            int pageSize = Constants.PageSize;
+            int pageNumber = (page ?? 1);
+            return View(homePageDTO.productFilter.productsDTOs.Products.ToPagedList(pageNumber, pageSize));
             return View(homePageDTO);
-            //ProductsDTO products = null;
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    products = ProductLogic.AllProductsInSearch(searchString);
-            //}
-            //return View(products);
+           
         }
     }
 }

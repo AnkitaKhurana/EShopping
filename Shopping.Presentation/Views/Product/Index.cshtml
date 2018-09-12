@@ -1,5 +1,8 @@
 ﻿@using Shopping.Shared.DTOs
-@model Shopping.Shared.DTOs.ProductsDTO
+
+
+@model PagedList.IPagedList<Shopping.Shared.DTOs.ProductDTO>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -21,8 +24,8 @@
 
     <hr />
     <dl class="dl-horizontal"></dl>
-  
-    @foreach (var product in Model.Products)
+
+    @foreach (var product in Model)
     {
 
         <div class="box">
@@ -32,13 +35,16 @@
                 <P>Price : @product.Price</P>
                 @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null)
             </div>
-
         </div>
-
 
     }
 
 </div>
+<br>
+ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, currentFilter = ViewBag.CurrentFilter }))
 <p>
     @Html.ActionLink("All Products", "Index")
 </p>

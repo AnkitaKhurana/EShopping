@@ -1,4 +1,6 @@
-﻿@model Shopping.Shared.DTOs.HomePageDTO
+﻿@*@model Shopping.Shared.DTOs.HomePageDTO*@
+@model PagedList.IPagedList<Shopping.Shared.DTOs.ProductDTO>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "SearchResults";
 }
@@ -9,9 +11,9 @@
     <h4>ProductsDTO</h4>
     <hr />
     <dl class="dl-horizontal">
-        @if (Model!= null)
+        @if (Model != null)
         {
-            foreach (var product in Model.productFilter.productsDTOs.Products)
+            foreach (var product in Model)
             {
 
                 <div class="box">
@@ -23,9 +25,12 @@
                     </div>
 
                 </div>
-
-
             }
+            <br />
+            <text>Page : </text>@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) <text>of</text> @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("SearchResults",
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
         }
         else
         {

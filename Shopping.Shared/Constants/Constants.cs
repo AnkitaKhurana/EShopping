@@ -10,6 +10,7 @@ namespace Shopping.Shared.Constants
     {
         public static int TotalCategories = 6;
         public static int ProductsToDisplay = 5;
+        public static int PageSize = 5;
 
     }
 }
