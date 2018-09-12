@@ -29,7 +29,7 @@ namespace Shopping.DAL.Data
 
                 foreach (var orderItem in order.orders)
                 {
-                    db.Products.FirstOrDefault(x => x.Id == orderItem.ProductId).TotalQuantitySale += orderItem.Quantity;
+                    var totalsale = db.Products.FirstOrDefault(x => x.Id == orderItem.ProductId).TotalQuantitySale += orderItem.Quantity;
                     db.SaveChanges();
                 }
 
@@ -43,54 +43,92 @@ namespace Shopping.DAL.Data
                     db.SaveChanges();
                 }
 
+                foreach (var orderItem in newOrdersPlaced)
+                {
+                    var existingEntry  = db.TopProducts.FirstOrDefault(x => x.ProductId == orderItem.ProductId);
+                    if(existingEntry != null)
+                    {
+                        existingEntry.TotalSale += orderItem.Quantity;
+                    }
+                    db.SaveChanges();
+                }
+
                 foreach (var category in categories)
                 {
-                    var categoryRowsInAnalytics = analytics.Where(x => x.ProductCategoryId == category.Id);
-                    if (categoryRowsInAnalytics.Count() < 5)
                     {
-                        var topProductsInOrder = newOrdersPlaced.Where(x => x.Product.ProductCategory.Id == category.Id);
-                        int i = topProductsInOrder.Count() - 1;
-                        while (categoryRowsInAnalytics.Count() != 5 && i >= 0)
+                        var categoryRowsInAnalytics = analytics.Where(x => x.ProductCategoryId == category.Id);
+                        if (categoryRowsInAnalytics.Count() < 5)
                         {
-                            var newProduct = new TopProduct()
+                            Guid categoryId = category.Id;
+                            var topProductsInOrder = (from o in db.OrderLines
+                                                      where o.OrderId == order.Id &&
+                                                      o.Product.ProductCategory.Id == categoryId
+                                                      select o).AsEnumerable();
+                           
+                            //var topProductsInOrder = newOrdersPlaced.Find(x => x.Product.ProductCategory.Id == categoryId);
+                            int i = topProductsInOrder.Count() - 1;
+                            while (categoryRowsInAnalytics.Count() != 5 && i >= 0)
                             {
-                                Id = Guid.NewGuid(),
-                                TotalSale = topProductsInOrder.ElementAt(i).Product.TotalQuantitySale,
-                                ProductId = topProductsInOrder.ElementAt(i).ProductId,
-                                ProductCategoryId = topProductsInOrder.ElementAt(i).Product.ProductCategory.Id,
-                            };
-                            db.TopProducts.Add(newProduct);
-                            db.SaveChanges();
-                            analytics = (from a in db.TopProducts
-                                         select a).ToList();
-                            categoryRowsInAnalytics = analytics.Where(x => x.ProductCategoryId == category.Id);
-                            i--;
-                        }
-                    }
-                    else
-                    {
-                        var topProductsInOrder = newOrdersPlaced.OrderBy(x => x.Quantity).Where(x => x.Product.ProductCategory.Id == category.Id);
-                        foreach (var orderItem in topProductsInOrder)
-                        {
-                            foreach (var analyticItem in categoryRowsInAnalytics)
-                            {
-                                if (analyticItem.TotalSale < orderItem.Product.TotalQuantitySale)
+                                Guid id = topProductsInOrder.ElementAt(i).ProductId;
+                                var found = db.TopProducts.FirstOrDefault(x => x.ProductId == id);
+                                //var found = db.TopProducts.FirstOrDefault(x => x.ProductId == topProductsInOrder.ElementAtOrDefault(i).ProductId);
+                                Console.Write(found);
+                                if (found == null)
                                 {
-                                    db.TopProducts.Remove(analyticItem);
-                                    db.TopProducts.Add(new TopProduct()
+                                    var newProduct = new TopProduct()
                                     {
                                         Id = Guid.NewGuid(),
-                                        ProductCategoryId = analyticItem.ProductCategoryId,
-                                        ProductId = orderItem.ProductId,
-                                        TotalSale = orderItem.Product.TotalQuantitySale
-                                    });
+                                        TotalSale = topProductsInOrder.ElementAt(i).Product.TotalQuantitySale,
+                                        ProductId = topProductsInOrder.ElementAt(i).ProductId,
+                                        ProductCategoryId = topProductsInOrder.ElementAt(i).Product.ProductCategory.Id,
+                                    };
+                                    db.TopProducts.Add(newProduct);
                                     db.SaveChanges();
+                                    analytics = (from a in db.TopProducts
+                                                 select a).ToList();
+                                    categoryRowsInAnalytics = analytics.Where(x => x.ProductCategoryId == category.Id);
                                 }
+
+                                i--;
                             }
                         }
+                        else
+                        {
+                            var topProductsInOrder = newOrdersPlaced.Where(x => x.Product.CategoryId == category.Id);
+                            foreach (var orderItem in topProductsInOrder)
+                            {
+                                foreach (var analyticItem in categoryRowsInAnalytics)
+                                {
+                                    if (analyticItem.TotalSale <= orderItem.Product.TotalQuantitySale)
+                                    {
+                                        var found = (from s in db.TopProducts
+                                                    where s.ProductId == orderItem.ProductId
+                                                    select s).FirstOrDefault();
+
+                                        //found.FirstOrDefault
+
+                                            //db.TopProducts.FirstOrDefault(x => x.ProductId == orderItem.ProductId);
+
+                                        if (found == null)
+                                        {
+                                            db.TopProducts.Remove(analyticItem);
+                                            db.TopProducts.Add(new TopProduct()
+                                            {
+                                                Id = Guid.NewGuid(),
+                                                ProductCategoryId = orderItem.Product.CategoryId,
+                                                ProductId = orderItem.ProductId,
+                                                TotalSale = orderItem.Product.TotalQuantitySale
+                                            });
+                                            db.SaveChanges();
+                                        }
+                                    }
+                                }
+                            }
 
 
+                        }
                     }
+
 
                 }
 

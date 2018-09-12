@@ -3,9 +3,6 @@ using Shopping.Presentation.Mapping;
 using Shopping.Presentation.ViewModels;
 using Shopping.Shared.DTOs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Shopping.Presentation.Controllers
@@ -54,7 +51,7 @@ namespace Shopping.Presentation.Controllers
         {
             CartDTO cartDTO = new CartDTO();
             Guid id = new Guid(product.ToString());
-            CartLogic.AddToCart(new Guid(Session["id"].ToString()), id);
+            CartLogic.AddToCart(new Guid(Session["id"].ToString()), id );
             return RedirectToAction("Cart");
         }
 

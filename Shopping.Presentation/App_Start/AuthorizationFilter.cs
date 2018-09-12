@@ -24,7 +24,16 @@ namespace Shopping.Presentation.App_Start
             // Check for authorization  
             if (HttpContext.Current.Session["UserName"] == null)
             {
-                filterContext.Result = new RedirectResult("~/Customer/Login");
+               
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
+                {
+                    { "controller", "Customer" },
+                    { "action", "Login" },
+                    { "RedirectResult", filterContext.HttpContext.Request.Url.GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped) }
+                });
+
+                
+                //filterContext.Result = new RedirectResult("~/Customer/Login");
             }
         }
     }
