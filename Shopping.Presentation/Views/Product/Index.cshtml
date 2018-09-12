@@ -1,5 +1,5 @@
 ﻿@using Shopping.Shared.DTOs
-@model Shopping.Presentation.ViewModels.ProductFilters
+@model Shopping.Shared.DTOs.ProductsDTO
 
 @{
     ViewBag.Title = "Index";
@@ -21,26 +21,8 @@
 
     <hr />
     <dl class="dl-horizontal"></dl>
-    @using (Html.BeginForm())
-    {
-        <p>
-
-
-
-            Find Product: @Html.TextBox("searchString", ViewBag.searchString as string)
-            <br>
-            Find by Category:
-            @{var lookupItem = Model.categories.categories;}
-
-            @Html.DropDownListFor(m => m.categories.categories, lookupItem.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }), "-- All --", new { @class = "form-control" })
-
-
-
-            <input type="submit" value="Search" />
-        </p>
-    }
-
-    @foreach (var product in Model.productsDTOs.Products)
+  
+    @foreach (var product in Model.Products)
     {
 
         <div class="box">

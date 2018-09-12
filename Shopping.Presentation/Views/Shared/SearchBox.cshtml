@@ -1,0 +1,19 @@
+﻿@using Shopping.Shared.DTOs
+@using Shopping.BLL.Logic
+
+
+@using (Html.BeginForm("SearchResults", "Product"))
+{
+<p>
+       @Html.TextBox("searchString", ViewBag.searchString as string, new { placeholder = "Search Product" })
+</p>
+    <p>
+        @{var lookupItem = CategoryLogic.AllCategories().categories;}
+        @Html.DropDownList("category", lookupItem.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString()}), "All Categories", new { @class = "form-control" })
+    </p>
+    <p>
+        <button type="submit" value="Submit">Search Product</button>
+
+        @*<input; type="submit" value="Search Product" />*@
+    </p>
+}

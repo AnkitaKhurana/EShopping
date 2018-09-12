@@ -44,6 +44,11 @@ namespace Shopping.BLL.Logic
                     }
                     category.TopProducts.Add(pt);
                     homePageDTO.Trending.Add(category);
+                    homePageDTO.productFilter = new ProductFilter {
+                        productsDTOs = ProductLogic.AllProducts(),
+                        categories = CategoryLogic.AllCategories()
+                    };
+
                 }
                 return homePageDTO;
             }

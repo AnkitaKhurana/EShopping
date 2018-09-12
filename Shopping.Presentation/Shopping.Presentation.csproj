@@ -232,6 +232,9 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Product\SearchResults.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ProductFilters.cshtml" />
+    <Content Include="Views\Shared\SearchBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

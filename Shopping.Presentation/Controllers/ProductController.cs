@@ -18,44 +18,60 @@ namespace Shopping.Presentation.Controllers
         /// <param name="searchString"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        public ActionResult Index(string searchString)
+        public ActionResult Index()
         {
-            string category = null;
-            Guid? categoryId = null;
-            if (Request.Form["categories.categories"] != null)
-            {
-                category = Request.Form["categories.categories"].ToString();
-                if (!String.IsNullOrEmpty(category))
-                {
-                    categoryId = new Guid(category);
-                }
-            }
+            ProductsDTO  products = ProductLogic.AllProducts();
+            return View(products);
 
-
-            ProductsDTO products;
-            if (String.IsNullOrEmpty(searchString))
-            {
-                if (!categoryId.HasValue)
-                    products = ProductLogic.AllProducts();
-                else
-                    products = ProductLogic.AllProductsInCategory(new Guid(categoryId.ToString()));
-            }
-            else
-            {
-                if (!categoryId.HasValue)
-                    products = ProductLogic.AllProductsInSearch(searchString);
-                else
-                    products = ProductLogic.AllProductsInSearchAndCategory(searchString, new Guid(categoryId.ToString()));
-            }
-
-            ProductFilters productFilters = new ProductFilters
-            {
-                productsDTOs = products,
-                categories = CategoryLogic.AllCategories()
-            };
-
-            return View(productFilters);
         }
+
+
+
+
+        //public ActionResult Index(string searchString)
+        //{
+        //    string category = null;
+        //    Guid? categoryId = null;
+        //    if (Request.Form["categories.categories"] != null)
+        //    {
+        //        category = Request.Form["categories.categories"].ToString();
+        //        if (!String.IsNullOrEmpty(category))
+        //        {
+        //            categoryId = new Guid(category);
+        //        }
+        //    }
+
+        //    ProductsDTO products;
+        //    if (String.IsNullOrEmpty(searchString))
+        //    {
+        //        if (!categoryId.HasValue)
+        //            products = ProductLogic.AllProducts();
+        //        else
+        //            products = ProductLogic.AllProductsInCategory(new Guid(categoryId.ToString()));
+        //    }
+        //    else
+        //    {
+        //        if (!categoryId.HasValue)
+        //            products = ProductLogic.AllProductsInSearch(searchString);
+        //        else
+        //            products = ProductLogic.AllProductsInSearchAndCategory(searchString, new Guid(categoryId.ToString()));
+        //    }
+
+        //    ProductFilter productFilters = new ProductFilter
+        //    {
+        //        productsDTOs = products,
+        //        categories = CategoryLogic.AllCategories()
+        //    };
+        //    HomePageDTO homePageDTO = new HomePageDTO()
+        //    {
+        //        productFilter = productFilters,
+        //        Trending = null
+        //    };
+        //    return View(homePageDTO);
+
+        //}
+
+
 
 
         /// <summary>
@@ -74,6 +90,55 @@ namespace Shopping.Presentation.Controllers
             }
             return View();
 
+        }
+
+        [AllowAnonymous]
+        public ActionResult SearchResults(string searchString)
+        {
+            string category = null;
+            Guid? categoryId = null;
+            if (Request.Form["category"] != null)
+            {
+                category = Request.Form["category"].ToString();
+                if (!String.IsNullOrEmpty(category))
+                {
+                    categoryId = new Guid(category);
+                }
+            }
+
+            ProductsDTO products;
+            if (String.IsNullOrEmpty(searchString))
+            {
+                if (!categoryId.HasValue)
+                    products = ProductLogic.AllProducts();
+                else
+                    products = ProductLogic.AllProductsInCategory(new Guid(categoryId.ToString()));
+            }
+            else
+            {
+                if (!categoryId.HasValue)
+                    products = ProductLogic.AllProductsInSearch(searchString);
+                else
+                    products = ProductLogic.AllProductsInSearchAndCategory(searchString, new Guid(categoryId.ToString()));
+            }
+
+            ProductFilter productFilters = new ProductFilter
+            {
+                productsDTOs = products,
+                categories = CategoryLogic.AllCategories()
+            };
+            HomePageDTO homePageDTO = new HomePageDTO()
+            {
+                productFilter = productFilters,
+                Trending = null
+            };
+            return View(homePageDTO);
+            //ProductsDTO products = null;
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    products = ProductLogic.AllProductsInSearch(searchString);
+            //}
+            //return View(products);
         }
     }
 }

@@ -1,0 +1,40 @@
+﻿@model Shopping.Shared.DTOs.HomePageDTO
+@{
+    ViewBag.Title = "SearchResults";
+}
+
+<h2>SearchResults</h2>
+
+<div>
+    <h4>ProductsDTO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @if (Model!= null)
+        {
+            foreach (var product in Model.productFilter.productsDTOs.Products)
+            {
+
+                <div class="box">
+                    <img src="@product.ImageURL" width="200px" height="200px" />
+                    <div class="textBox">
+                        <p>Name : @product.Name</p>
+                        <P>Price : @product.Price</P>
+                        @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null)
+                    </div>
+
+                </div>
+
+
+            }
+        }
+        else
+        {
+            <p>Nope</p>
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

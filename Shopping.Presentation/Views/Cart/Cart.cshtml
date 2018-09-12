@@ -1,21 +1,30 @@
 ﻿@model Shopping.Presentation.ViewModels.Cart
 
 @{
-                /**/
 
-                ViewBag.Title = "Cart";
+
+    ViewBag.Title = "Cart";
 }
 
 <h2>My Cart</h2>
 @using (Html.BeginForm())
 {
+    var CartItemsCount = Model.items.Count();
+    if (CartItemsCount == 0)
+    {
+        <p>Your Cart is Empty!</p>
+        <p>@Html.ActionLink("Buy Products", "","Product")</p>
+    }
+    else
+    {
+        <div class="form-horizontal">
+            @Html.EditorFor(x => x.items)
+        </div>
+        <div>
+            <input type="button" value="Confirm Order" onclick="location.href='@Url.Action("Confirm", "Order")'" />
+        </div>
+    }
 
-    <div class="form-horizontal">
-        @Html.EditorFor(x => x.items)
-    </div>
-    <div>
-        <input type="button" value="Confirm Order" onclick="location.href='@Url.Action("Confirm", "Order")'" />
-    </div>
 }
 <br><br><br><br><br>
 

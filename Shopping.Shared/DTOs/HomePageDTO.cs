@@ -11,8 +11,10 @@ namespace Shopping.Shared.DTOs
         public HomePageDTO()
         {
             this.Trending = new List<TrendingDTO>();
+          
         }
         public List<TrendingDTO> Trending;
+        public ProductFilter productFilter;
         
     }
 }

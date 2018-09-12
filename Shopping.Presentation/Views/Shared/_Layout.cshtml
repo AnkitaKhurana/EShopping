@@ -1,5 +1,9 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+<style>
+    .seachBox {
+        margin: 200px
+    }
+</style>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -24,6 +28,10 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Products", "Index", "Product")</li>
                 </ul>
+                <ul class="nav navbar-nav navbar-center" style="margin:15px">
+                    @Html.Partial("~/Views/Shared/SearchBox.cshtml")                 
+
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Profile", "Details", "Customer")</li>
                     <li>@Html.ActionLink("My Cart", "Cart", "Cart")</li>
@@ -41,7 +49,9 @@
 
                 </ul>
             </div>
+
         </div>
+
     </div>
     <div class="container body-content">
         @RenderBody()
