@@ -132,6 +132,51 @@ namespace Shopping.DAL.Data
             }
         }
 
+        
+        public static OrderDTO FindOrder(Guid orderId)
+        {
+            try
+            {
+                var orderQuery   = (from line in db.OrderLines
+                                   where line.OrderId == orderId
+                               select line ).ToList();
+
+                List<OrderLineDTO> orders = new List<OrderLineDTO>();
+                foreach(var orderLine in orderQuery)
+                {
+                    orders.Add(new OrderLineDTO()
+                    {
+                        Id = orderLine.Id,
+                        OrderId = orderLine.OrderId,
+                        ProductId = orderLine.ProductId,
+                        Quantity = orderLine.Quantity,
+                        ProductName = orderLine.Product.Name
+
+                    });
+                }
+
+                var orderInDb = (from line in db.Orders
+                                 where line.Id == orderId
+                                 select line).FirstOrDefault();
+
+                OrderDTO order = new OrderDTO()
+                {
+                    Id = orderInDb.Id,
+                    orders = orders,
+                    CustomerId = orderInDb.CustomerId,
+                    OrderStatus = orderInDb.OrderStatus,
+                    TotalAmount = orderInDb.TotalAmount
+                };
+
+                return order;
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
+
     }
 }
 ;

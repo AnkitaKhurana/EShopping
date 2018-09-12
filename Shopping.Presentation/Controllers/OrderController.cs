@@ -28,5 +28,11 @@ namespace Shopping.Presentation.Controllers
             OrderDTO orderDTO = OrderLogic.PlaceOrder(new Guid(Session["id"].ToString()));
             return View(orderDTO);
         }
+
+        public ActionResult Order(Guid order)
+        {
+            OrderDTO orderDTO = OrderLogic.Find(new Guid(order.ToString()));            
+            return View(orderDTO);
+        }
     }
 }

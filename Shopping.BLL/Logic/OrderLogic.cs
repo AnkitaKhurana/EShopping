@@ -48,5 +48,24 @@ namespace Shopping.BLL.Logic
             }
 
         }
+
+        /// <summary>
+        /// Find Order By Order ID
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
+        public static OrderDTO Find(Guid orderId)
+        {
+            try
+            {
+                OrderDTO saved = OrderData.FindOrder(orderId);           
+                return saved;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿@model Shopping.Shared.DTOs.AllOrdersDTO
+﻿@using Shopping.Shared.DTOs
+@model Shopping.Shared.DTOs.AllOrdersDTO
+
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +11,6 @@
         background-color: seashell;
         margin: 5px;
     }
-
 </style>
 <h2>Index</h2>
 
@@ -18,47 +19,37 @@
     <hr />
     @foreach (var order in Model.Orders)
     {
+        <p></p>
+        
+            <div class="box">
+                <dl class="dl-horizontal">
 
-        <div class="box">
-        <dl class="dl-horizontal">
+                    <dt>
+                        Order Status:
+                    </dt>
+                    <dd>
+                        @order.OrderStatus;
+                    </dd>
+                    <dt>
+                        Amount:
+                    </dt>
 
-            <dt>
-                Order Status:
-            </dt>
-            <dd>
-                @order.OrderStatus;
-            </dd>
-            <dt>
-                Amount:
-            </dt>
+                    <dd>
+                        @order.TotalAmount;
+                    </dd>
+                    <dd>
+                        @*<td>@Html.ActionLink("Order", "Order", new { order = new OrderDTO() { TotalAmount = order.TotalAmount} }, new { @id = "submit" })</td>*@
+                        <a href=@Url.Action("Order", "Order", new { order = order.Id },null)>
+                            <Button>Details</Button>
 
-            <dd>
-                @order.TotalAmount;
-            </dd>
-            
-            @for (int i = 0; i < order.orders.Count; i++)
-            {
-                <dt>
-                    Product Name:
-                </dt>
+                        </a>
+                    </dd>
 
-                <dd>
-                    @order.orders[i].ProductName
-                </dd>
-                <dt>
-                    Quanity:
-                </dt>
-
-                <dd>
-                    @order.orders[i].Quantity
-                </dd>
-
-            }
-           
-
-        </dl>
+                </dl>
             </div>
-    }
+            
+
+        }
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")
