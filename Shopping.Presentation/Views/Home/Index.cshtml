@@ -24,24 +24,23 @@
     <hr />
     <dl class="dl-horizontal">
 
-        @for (int i = 0; i < Model.Trending.Count(); i++)
+        @for (int index = 0; index < Model.Trending.Count(); index++)
         {
-            <h1>#  @Model.Trending[i].Rank @Model.Trending[i].Category.Name  </h1>
+            <h1>#  @Model.Trending[index].Rank @Model.Trending[index].Category.Name  </h1>
 
 
             for (int productIndex = 0; productIndex < 5;)
             {
                 <div class="box">
-                    <img src="@Model.Trending[i].TopProducts[0].Products[productIndex].ImageURL" width="200px" height="200px" />
+                    <img src="@Model.Trending[index].TopProducts[0].Products[productIndex].ImageURL" width="200px" height="200px" />
                     <div class="textBox">
-                        <h3>@Model.Trending[i].TopProducts[0].Products[productIndex].Name</h3>
-                        <p> @Model.Trending[i].TopProducts[0].Products[productIndex].Price &#x20B9; </p>
-                        <p> Total Sale: @Model.Trending[i].TopProducts[0].Products[productIndex].TotalQuantitySale </p>
+                        <h3>@Model.Trending[index].TopProducts[0].Products[productIndex].Name</h3>
+                        <p> @Model.Trending[index].TopProducts[0].Products[productIndex].Price &#x20B9; </p>
+                        <p> Total Sale: @Model.Trending[index].TopProducts[0].Products[productIndex].TotalQuantitySale </p>
                     </div>
                 </div>
 
-
-                if (i < 3)
+                if (index < 3)
                 {
                     productIndex = productIndex + 2;
                 }

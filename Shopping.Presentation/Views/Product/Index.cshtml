@@ -14,8 +14,8 @@
     .box {
         display: inline-block;
         margin: 7px;
-        border:double;
-        padding:2px;
+        border: double;
+        padding: 2px;
     }
 
     .textBox {
@@ -29,17 +29,17 @@
 
     @foreach (var product in Model)
     {
-    <div class="box">
-        <a href=@Url.Action("Details", "Product",new { product = product.Id },null)>
-            <div >
-                <img src="@product.ImageURL" width="200px" height="200px" />
-                <div class="textBox">
-                    <h3>@product.Name</h3>
-                    <h4>@product.Price &#x20B9;</h4>
+        <div class="box">
+            <a href=@Url.Action("Details", "Product",new { product = product.Id },null)>
+                <div>
+                    <img src="@product.ImageURL" width="200px" height="200px" />
+                    <div class="textBox">
+                        <h3>@product.Name</h3>
+                        <h4>@product.Price &#x20B9;</h4>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </div>
+            </a>
+        </div>
     }
 
 </div>

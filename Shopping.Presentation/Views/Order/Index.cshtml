@@ -39,9 +39,9 @@
                             @order.TotalAmount
                         </dd>
                     </div>
-                    <div class="col-md-2"> 
+                    <div class="col-md-2">
                         <dd>
-                            <a href=@Url.Action("Order", "Order", new { order = order.Id }, null) >
+                            <a href=@Url.Action("Order", "Order", new { order = order.Id }, null)>
                                 <Button class="btn btn-warning ">Details</Button>
                             </a>
                         </dd>
@@ -51,8 +51,8 @@
                 </div>
             </div>
         </div>
-       
+
     }
-        <p>
-            @Html.ActionLink("Back to List", "Index")
-        </p>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>

@@ -49,7 +49,11 @@ namespace Shopping.Presentation.Controllers
                         Session["UserName"] = foundCustomer.Name;
                         Session["Email"] = foundCustomer.Email;
                         Session["Role"] = (foundCustomer.Role == 1 ? "Admin" : "Normal Customer");
-                        Session["Id"] = foundCustomer.Id;                       
+                        Session["Id"] = foundCustomer.Id;
+                        Session["Address1"] = foundCustomer.Address1;
+                        Session["Address2"] = foundCustomer.Address2;
+                        Session["Address3"] = foundCustomer.Address3;
+
 
                     }                  
                     return Redirect(Request.QueryString["RedirectResult"]);

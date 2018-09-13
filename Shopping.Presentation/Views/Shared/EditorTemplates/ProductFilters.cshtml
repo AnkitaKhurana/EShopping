@@ -8,7 +8,6 @@
 
 <h2>Products</h2>
 <style>
-
     .box {
         display: inline-block;
         margin: 7px;
@@ -25,18 +24,12 @@
     @using (Html.BeginForm())
     {
         <p>
-
-
-
-            Find Product: @Html.TextBox("searchString", ViewBag.searchString as string)
+           Find Product: @Html.TextBox("searchString", ViewBag.searchString as string)
             <br>
-            
+
             @{var lookupItem = Model.categories.categories;}
 
             @Html.DropDownListFor(m => m.categories.categories, lookupItem.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }), "-- All --", new { @class = "form-control" })
-
-
-
             <input type="submit" value="Search" />
         </p>
     }
@@ -51,10 +44,7 @@
                 <P>Price : @product.Price</P>
                 @Html.ActionLink("Details", "Details", "Product", new { product = product.Id }, null)
             </div>
-
         </div>
-
-
     }
 
 </div>
