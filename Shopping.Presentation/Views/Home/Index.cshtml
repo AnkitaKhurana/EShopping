@@ -6,29 +6,40 @@
 
 <style>
     .box {
-        display: inline-block
+        display: inline-block;
+        margin: 10px;
+        padding: 2px;
+        border: double
+    }
+
+    .textBox {
+        background-color: #e8cd4a;
+        color: black;
     }
 </style>
 <div>
-    <h4>Have a look at our Trending Products!</h4>
+    <center>
+        <h3>Have a look at our Trending Products!</h3>
+    </center>
     <hr />
     <dl class="dl-horizontal">
 
         @for (int i = 0; i < Model.Trending.Count(); i++)
         {
-            <h2>@Model.Trending[i].Category.Name</h2>
-
-            <p>Trending Rank :  @Model.Trending[i].Rank</p>
+            <h1>#  @Model.Trending[i].Rank @Model.Trending[i].Category.Name  </h1>
 
 
             for (int productIndex = 0; productIndex < 5;)
             {
-
                 <div class="box">
                     <img src="@Model.Trending[i].TopProducts[0].Products[productIndex].ImageURL" width="200px" height="200px" />
-                    <p>Name : @Model.Trending[i].TopProducts[0].Products[productIndex].Name</p>
-                    <P>Price : @Model.Trending[i].TopProducts[0].Products[productIndex].Price</P>
+                    <div class="textBox">
+                        <h3>@Model.Trending[i].TopProducts[0].Products[productIndex].Name</h3>
+                        <p> @Model.Trending[i].TopProducts[0].Products[productIndex].Price &#x20B9; </p>
+                        <p> Total Sale: @Model.Trending[i].TopProducts[0].Products[productIndex].TotalQuantitySale </p>
+                    </div>
                 </div>
+
 
                 if (i < 3)
                 {
@@ -44,8 +55,3 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-

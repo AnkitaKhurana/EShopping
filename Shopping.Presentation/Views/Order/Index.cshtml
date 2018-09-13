@@ -19,38 +19,40 @@
     <hr />
     @foreach (var order in Model.Orders)
     {
-        <p></p>
-        
+
+
+        <div class="container">
             <div class="box">
-                <dl class="dl-horizontal">
+                <div class="row">
 
-                    <dt>
-                        Order Status:
-                    </dt>
-                    <dd>
-                        @order.OrderStatus;
-                    </dd>
-                    <dt>
-                        Amount:
-                    </dt>
+                    <div class="col-md-10">
+                        <dt>
+                            Order Status:
+                        </dt>
+                        <dd>
+                            @order.OrderStatus
+                        </dd>
+                        <dt>
+                            Amount:
+                        </dt>
+                        <dd>
+                            @order.TotalAmount
+                        </dd>
+                    </div>
+                    <div class="col-md-2"> 
+                        <dd>
+                            <a href=@Url.Action("Order", "Order", new { order = order.Id }, null) >
+                                <Button class="btn btn-warning ">Details</Button>
+                            </a>
+                        </dd>
+                    </div>
 
-                    <dd>
-                        @order.TotalAmount;
-                    </dd>
-                    <dd>
-                        @*<td>@Html.ActionLink("Order", "Order", new { order = new OrderDTO() { TotalAmount = order.TotalAmount} }, new { @id = "submit" })</td>*@
-                        <a href=@Url.Action("Order", "Order", new { order = order.Id },null)>
-                            <Button>Details</Button>
 
-                        </a>
-                    </dd>
-
-                </dl>
+                </div>
             </div>
-            
-
-        }
-</div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </div>
+       
+    }
+        <p>
+            @Html.ActionLink("Back to List", "Index")
+        </p>

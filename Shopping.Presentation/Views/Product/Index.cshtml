@@ -8,12 +8,14 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Products</h2>
+<h2>All Products</h2>
 <style>
 
     .box {
         display: inline-block;
         margin: 7px;
+        border:double;
+        padding:2px;
     }
 
     .textBox {
@@ -29,7 +31,7 @@
     {
     <div class="box">
         <a href=@Url.Action("Details", "Product",new { product = product.Id },null)>
-            <div class="box">
+            <div >
                 <img src="@product.ImageURL" width="200px" height="200px" />
                 <div class="textBox">
                     <h3>@product.Name</h3>
