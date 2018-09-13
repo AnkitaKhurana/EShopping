@@ -10,6 +10,11 @@ namespace Shopping.DAL.Map
 {
     public class CustomerMapping
     {
+        /// <summary>
+        /// DTO to DB
+        /// </summary>
+        /// <param name="customerDTO"></param>
+        /// <returns></returns>
         public static DBCustomer.Customer MapCustomer(CustomerDTO customerDTO)
         {
 
@@ -27,7 +32,11 @@ namespace Shopping.DAL.Map
 
             return result;
         }
-
+        /// <summary>
+        /// DB to DTO
+        /// </summary>
+        /// <param name="customerDTO"></param>
+        /// <returns></returns>
         public static CustomerDTO MapCustomer(DBCustomer.Customer customerDTO)
         {
 
