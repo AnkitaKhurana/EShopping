@@ -20,39 +20,38 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static bool UpdateTopProducts(OrderDTO order)
         {
+            bool analyticsUpdateStatus = false;
             try
             {
+                // Data Updation and retrieval  
                 var analytics = (from a in db.TopProducts
                                  select a).ToList();
                 var categories = (from c in db.ProductCategories
                                   select c).ToList();
-
                 foreach (var orderItem in order.orders)
                 {
                     var totalsale = db.Products.FirstOrDefault(x => x.Id == orderItem.ProductId).TotalQuantitySale += orderItem.Quantity;
                     db.SaveChanges();
                 }
-
                 var newOrdersPlaced = (from o in db.OrderLines
                                        where o.OrderId == order.Id
                                        select o).ToList();
-
                 foreach (var orderItem in newOrdersPlaced)
                 {
                     db.ProductCategories.FirstOrDefault(x => x.Id == orderItem.Product.CategoryId).TotalSaleQuantity += orderItem.Quantity;
                     db.SaveChanges();
                 }
-
                 foreach (var orderItem in newOrdersPlaced)
                 {
-                    var existingEntry  = db.TopProducts.FirstOrDefault(x => x.ProductId == orderItem.ProductId);
-                    if(existingEntry != null)
+                    var existingEntry = db.TopProducts.FirstOrDefault(x => x.ProductId == orderItem.ProductId);
+                    if (existingEntry != null)
                     {
                         existingEntry.TotalSale += orderItem.Quantity;
                     }
                     db.SaveChanges();
                 }
 
+                // For each category check the analytics and Orders
                 foreach (var category in categories)
                 {
                     {
@@ -64,23 +63,21 @@ namespace Shopping.DAL.Data
                                                       where o.OrderId == order.Id &&
                                                       o.Product.ProductCategory.Id == categoryId
                                                       select o).AsEnumerable();
-                           
-                            //var topProductsInOrder = newOrdersPlaced.Find(x => x.Product.ProductCategory.Id == categoryId);
-                            int i = topProductsInOrder.Count() - 1;
-                            while (categoryRowsInAnalytics.Count() != 5 && i >= 0)
+
+                            int totalCount = topProductsInOrder.Count() - 1;
+                            while (categoryRowsInAnalytics.Count() != 5 && totalCount >= 0)
                             {
-                                Guid id = topProductsInOrder.ElementAt(i).ProductId;
+                                Guid id = topProductsInOrder.ElementAt(totalCount).ProductId;
                                 var found = db.TopProducts.FirstOrDefault(x => x.ProductId == id);
-                                //var found = db.TopProducts.FirstOrDefault(x => x.ProductId == topProductsInOrder.ElementAtOrDefault(i).ProductId);
-                                Console.Write(found);
+
                                 if (found == null)
                                 {
                                     var newProduct = new TopProduct()
                                     {
                                         Id = Guid.NewGuid(),
-                                        TotalSale = topProductsInOrder.ElementAt(i).Product.TotalQuantitySale,
-                                        ProductId = topProductsInOrder.ElementAt(i).ProductId,
-                                        ProductCategoryId = topProductsInOrder.ElementAt(i).Product.ProductCategory.Id,
+                                        TotalSale = topProductsInOrder.ElementAt(totalCount).Product.TotalQuantitySale,
+                                        ProductId = topProductsInOrder.ElementAt(totalCount).ProductId,
+                                        ProductCategoryId = topProductsInOrder.ElementAt(totalCount).Product.ProductCategory.Id,
                                     };
                                     db.TopProducts.Add(newProduct);
                                     db.SaveChanges();
@@ -89,7 +86,7 @@ namespace Shopping.DAL.Data
                                     categoryRowsInAnalytics = analytics.Where(x => x.ProductCategoryId == category.Id);
                                 }
 
-                                i--;
+                                totalCount--;
                             }
                         }
                         else
@@ -102,12 +99,8 @@ namespace Shopping.DAL.Data
                                     if (analyticItem.TotalSale <= orderItem.Product.TotalQuantitySale)
                                     {
                                         var found = (from s in db.TopProducts
-                                                    where s.ProductId == orderItem.ProductId
-                                                    select s).FirstOrDefault();
-
-                                        //found.FirstOrDefault
-
-                                            //db.TopProducts.FirstOrDefault(x => x.ProductId == orderItem.ProductId);
+                                                     where s.ProductId == orderItem.ProductId
+                                                     select s).FirstOrDefault();
 
                                         if (found == null)
                                         {
@@ -124,20 +117,16 @@ namespace Shopping.DAL.Data
                                     }
                                 }
                             }
-
-
                         }
                     }
-
-
                 }
-
-                return true;
+                analyticsUpdateStatus = true;
             }
             catch (Exception e)
             {
-                return false;
+                analyticsUpdateStatus = false;
             }
+            return analyticsUpdateStatus;
 
         }
 
@@ -147,9 +136,9 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static ProductsDTO GetTopProducts()
         {
+            ProductsDTO products = new ProductsDTO();
             try
             {
-                ProductsDTO products = new ProductsDTO();
                 var topProducts = (from a in db.TopProducts
                                    select a).ToList();
                 foreach (var product in topProducts)
@@ -177,13 +166,12 @@ namespace Shopping.DAL.Data
 
                     });
                 }
-
-                return products;
             }
             catch
             {
-                return null;
+                products = null;
             }
+            return products;
         }
 
     }

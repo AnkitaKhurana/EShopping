@@ -20,10 +20,9 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static ProductsDTO AllProducts(string searchString, Guid? categoryId)
         {
-
+            ProductsDTO products = new ProductsDTO();
             try
             {
-                ProductsDTO products = new ProductsDTO();
                 var productRows = (from product in db.Products
                                    select product);
 
@@ -35,7 +34,6 @@ namespace Shopping.DAL.Data
                 {
                     productRows = productRows.Where(s => s.CategoryId == categoryId);
                 }
-
 
                 foreach (var row in productRows)
                 {
@@ -59,16 +57,14 @@ namespace Shopping.DAL.Data
                             TotalSaleQuantity = row.ProductCategory.TotalSaleQuantity
                         },
                         Variants = variantList
-
                     });
                 }
-
-                return products;
             }
             catch (Exception e)
             {
-                return null;
+                products = null;
             }
+            return products;
 
         }
 
@@ -79,9 +75,9 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static ProductDTO ProductDetail(Guid productId)
         {
+            ProductDTO productDTO = null;
             try
             {
-                ProductDTO productDTO = null;
                 var product = (from p in db.Products
                                where p.Id == productId
                                select p).FirstOrDefault();
@@ -109,16 +105,14 @@ namespace Shopping.DAL.Data
                             TotalSaleQuantity = product.ProductCategory.TotalSaleQuantity
                         },
                         Variants = variantList
-
                     };
-                    return productDTO;
                 }
-                return null;
             }
             catch
             {
-                return null;
+                productDTO = null;
             }
+            return productDTO;
         }
     }
 }

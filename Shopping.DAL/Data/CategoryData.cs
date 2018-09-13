@@ -18,9 +18,9 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static ProductsDTO TopCategories()
         {
+            ProductsDTO products = new ProductsDTO();
             try
             {
-                ProductsDTO products = new ProductsDTO();
                 var TopRows = (from product in db.TopProducts
                                select product).ToList();
 
@@ -51,12 +51,12 @@ namespace Shopping.DAL.Data
 
                     });
                 }
-                return products;
             }
             catch
             {
-                return null;
+                products = null;
             }
+            return products;
         }
 
         /// <summary>
@@ -65,9 +65,9 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static CategoriesDTO AllCategories()
         {
+            CategoriesDTO categories = new CategoriesDTO();
             try
             {
-                CategoriesDTO categories = new CategoriesDTO();
                 var categoryRows = (from category in db.ProductCategories
                                     select category);
 
@@ -80,12 +80,12 @@ namespace Shopping.DAL.Data
                         TotalSaleQuantity = category.TotalSaleQuantity
                     });
                 }
-                return categories;
             }
             catch
             {
-                return null;
+                categories = null;
             }
+            return categories;
         }
     }
 }

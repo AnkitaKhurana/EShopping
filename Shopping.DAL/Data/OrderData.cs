@@ -19,9 +19,10 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static List<OrderDTO> Orders(Guid customerId)
         {
+            List<OrderDTO> orders = new List<OrderDTO>();
+
             try
             {
-                List<OrderDTO> orders = new List<OrderDTO>();                
                 var customerOrders = (from order in db.Orders
                                       where order.CustomerId == customerId
                                       select new { order }).ToList();
@@ -55,14 +56,12 @@ namespace Shopping.DAL.Data
                     });
                 }
 
-                return orders;
-
             }
-
             catch
             {
-                return null;
+                orders = null;
             }
+            return orders;
         }
 
         /// <summary>
@@ -72,13 +71,13 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static OrderDTO Place(Guid customerId)
         {
+            OrderDTO orderDTO = null;
             try
             {
                 decimal sum = 0;
                 var cartjoin = (from cartItem in db.CartLines
                                 where cartItem.CustomerId == customerId
                                 select new { cartItem }).ToList();
-                OrderDTO orderDTO = null;
                 if (cartjoin.Count() != 0)
                 {
                     Order order = new Order() { Id = Guid.NewGuid() };
@@ -124,25 +123,30 @@ namespace Shopping.DAL.Data
 
                 }
 
-                return orderDTO;
             }
             catch
             {
-                return null;
+                orderDTO = null;
             }
+            return orderDTO;
         }
 
-        
+        /// <summary>
+        /// Find Order of order Id 
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public static OrderDTO FindOrder(Guid orderId)
         {
+            OrderDTO order = null;
             try
             {
-                var orderQuery   = (from line in db.OrderLines
-                                   where line.OrderId == orderId
-                               select line ).ToList();
-
                 List<OrderLineDTO> orders = new List<OrderLineDTO>();
-                foreach(var orderLine in orderQuery)
+                var orderQuery = (from line in db.OrderLines
+                                  where line.OrderId == orderId
+                                  select line).ToList();
+
+                foreach (var orderLine in orderQuery)
                 {
                     orders.Add(new OrderLineDTO()
                     {
@@ -151,7 +155,6 @@ namespace Shopping.DAL.Data
                         ProductId = orderLine.ProductId,
                         Quantity = orderLine.Quantity,
                         ProductName = orderLine.Product.Name
-
                     });
                 }
 
@@ -159,7 +162,7 @@ namespace Shopping.DAL.Data
                                  where line.Id == orderId
                                  select line).FirstOrDefault();
 
-                OrderDTO order = new OrderDTO()
+                order = new OrderDTO()
                 {
                     Id = orderInDb.Id,
                     orders = orders,
@@ -167,14 +170,12 @@ namespace Shopping.DAL.Data
                     OrderStatus = orderInDb.OrderStatus,
                     TotalAmount = orderInDb.TotalAmount
                 };
-
-                return order;
             }
             catch
             {
-                return null;
+                order = null;
             }
-
+            return order;
         }
 
     }

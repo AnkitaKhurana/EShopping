@@ -21,9 +21,9 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static CartDTO Cart(Guid id)
         {
+            CartDTO cartDTO = new CartDTO();
             try
             {
-
                 var cartjoin = (from customer in db.Customers
                                 where customer.Id == id
                                 join cl in db.CartLines on customer.Id equals cl.CustomerId
@@ -31,7 +31,6 @@ namespace Shopping.DAL.Data
                                 join pc in db.ProductCategories on p.CategoryId equals pc.Id
                                 select new { cl, p, pc }).ToList();
 
-                CartDTO cartDTO = new CartDTO();
                 foreach (var result in cartjoin)
                 {
                     List<String> variants = new List<String>();
@@ -65,12 +64,12 @@ namespace Shopping.DAL.Data
                     };
                     cartDTO.items.Add(cartLineDTO);
                 }
-                return cartDTO;
             }
             catch
             {
-                return null;
+                cartDTO = null;
             }
+            return cartDTO;
         }
 
         /// <summary>
@@ -85,10 +84,10 @@ namespace Shopping.DAL.Data
             {
 
                 CartDTO cartDTO = new CartDTO();
-                var alreadyExistingRecord = db.CartLines.Where(x => x.CustomerId == CustomerId && x.ProductId == ProductId);
-                if (alreadyExistingRecord.Count() != 0)
+                var alreadyExistingRecord = db.CartLines.Where(x => x.CustomerId == CustomerId && x.ProductId == ProductId).FirstOrDefault();
+                if (alreadyExistingRecord != null)
                 {
-                    alreadyExistingRecord.FirstOrDefault().Quantity++;
+                    alreadyExistingRecord.Quantity++;
                     db.SaveChanges();
                 }
                 else
@@ -111,6 +110,40 @@ namespace Shopping.DAL.Data
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Delete poduct from cart
+        /// </summary>
+        /// <param name="CustomerId"></param>
+        /// <param name="ProductId"></param>
+        /// <returns></returns>
+        public static CartDTO DeleteFromCart(Guid CustomerId, Guid ProductId)
+        {
+            CartDTO cartDTO = new CartDTO();
+            try
+            {
+                var alreadyExistingRecord = db.CartLines.Where(x => x.CustomerId == CustomerId && x.ProductId == ProductId).FirstOrDefault();
+                if (alreadyExistingRecord != null)
+                {
+                    if (alreadyExistingRecord.Quantity >= 2)
+                    {
+                        alreadyExistingRecord.Quantity--;
+                    }
+                    else if (alreadyExistingRecord.Quantity == 1)
+                    {
+                        db.CartLines.Remove(alreadyExistingRecord);
+                    }
+                    db.SaveChanges();
+                }
+                cartDTO = Cart(CustomerId);
+
+            }
+            catch (Exception e)
+            {
+                cartDTO = null;
+            }
+            return cartDTO;
         }
 
     }

@@ -23,9 +23,11 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static bool Register(CustomerDTO customer)
         {
+            bool registrationSuccess = false;
             try
             {
                 Customer dbCustomer = CustomerMapping.MapCustomer(customer);
+
                 var alreadyExistsCheck = db.Customers.Find(customer.Id);
                 if (alreadyExistsCheck != null)
                 {
@@ -36,7 +38,7 @@ namespace Shopping.DAL.Data
                 {
                     throw new EmailAlreadyExists();
                 }
-                return true;
+                registrationSuccess = true;
 
             }
             catch (EmailAlreadyExists)
@@ -45,9 +47,9 @@ namespace Shopping.DAL.Data
             }
             catch (Exception e)
             {
-                return false;
+                registrationSuccess = false;
             }
-           
+            return registrationSuccess;
         }
 
         /// <summary>
@@ -57,12 +59,45 @@ namespace Shopping.DAL.Data
         /// <returns></returns>
         public static CustomerDTO Find(CustomerDTO customerDTO)
         {
+            CustomerDTO resultCustomer = null;
             try
             {
                 var customerFound = db.Customers.FirstOrDefault(x => x.Email == customerDTO.Email && x.Password == customerDTO.Password);
                 if (customerFound != null)
                 {
-                    CustomerDTO resultCustomer = CustomerMapping.MapCustomer(customerFound);
+                    resultCustomer = CustomerMapping.MapCustomer(customerFound);
+                }
+                else
+                {
+                    throw new NoSuchUserFound();
+                }
+            }
+            catch (NoSuchUserFound)
+            {
+                throw new NoSuchUserFound();
+            }
+            catch (Exception e)
+            {
+                resultCustomer = null;
+            }
+            return resultCustomer;
+        }
+
+
+        /// <summary>
+        /// Find Customer 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static CustomerDTO FindId(Guid? id)
+        {
+            CustomerDTO resultCustomer = null;
+            try
+            {
+                var customerFound = db.Customers.FirstOrDefault(x => x.Id == id);
+                if (customerFound != null)
+                {
+                    resultCustomer = CustomerMapping.MapCustomer(customerFound);
                     return resultCustomer;
                 }
                 else
@@ -76,56 +111,34 @@ namespace Shopping.DAL.Data
             }
             catch (Exception e)
             {
-                return null;
+                resultCustomer = null;
             }
-        }
-        public static CustomerDTO FindId(Guid? id)
-        {
-            try
-            {
-                var customerFound = db.Customers.FirstOrDefault(x => x.Id == id);
-                if (customerFound != null)
-                {
-                    CustomerDTO resultCustomer = CustomerMapping.MapCustomer(customerFound);
-                    return resultCustomer;
-                }
-                else
-                {
-                    throw new NoSuchUserFound();
-                }             
-                
-            }
-            catch(NoSuchUserFound)
-            {
-                throw new NoSuchUserFound();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            return resultCustomer;
         }
 
+        /// <summary>
+        /// Edit Customer of customer Id to update Address
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         public static CustomerDTO Edit(CustomerDTO customer)
         {
+            CustomerDTO dbCustomer = null;
             try
             {
-
                 var foundCustomer = db.Customers.FirstOrDefault(x => x.Id == customer.Id);
                 foundCustomer.Address1 = customer.Address1;
                 foundCustomer.Address2 = customer.Address2;
                 foundCustomer.Address3 = customer.Address3;
                 db.SaveChanges();
                 var foundCustomeragin = db.Customers.Find(customer.Id);
-                CustomerDTO dbCustomer = CustomerMapping.MapCustomer(foundCustomeragin);
-                return dbCustomer;
+                dbCustomer = CustomerMapping.MapCustomer(foundCustomeragin);
             }
-
-            catch (Exception e)
+            catch
             {
-                return null;
+                dbCustomer = null;
             }
-
-
+            return dbCustomer;
         }
     }
 }

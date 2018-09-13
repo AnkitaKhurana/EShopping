@@ -2,34 +2,37 @@
 @model Shopping.Presentation.ViewModels.CartItem
 
 <style>
-    .item{
-        margin:3px;
-        background-color:seashell
+    .item {
+        margin: 3px;
+        background-color: seashell
     }
-    </style>
+</style>
 
 @using (Html.BeginForm("Cart", "Cart", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
+    <div class="form-horizontal">
 
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
-    <div class="col-md-10 item">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        <div class="col-md-10 item">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label " })
+            <input type="button" value="+" onclick="location.href='@Url.Action("AddToCart", "Cart", new {product = Model.Product.Id })'" />
 
-        @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label " })
 
-        @Html.DisplayFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.EditorFor(x => x.Product)
-        <dt>
-            Price:
+            @Html.DisplayFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            <input type="button" value="-" onclick="location.href='@Url.Action("DeleteFromCart", "Cart", new {product = Model.Product.Id })'" />
+
+            @Html.EditorFor(x => x.Product)
             <dt>
-        @(Model.Quantity*Model.Product.Price)
+                Price:
+            <dt>
+                @(Model.Quantity * Model.Product.Price)
+
+        </div>
 
     </div>
-    
-</div>   
 
 }

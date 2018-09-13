@@ -25,6 +25,7 @@ namespace Shopping.Presentation.Mapping
 
                 Product product = new Product()
                 {
+                    Id = productItem.Id,
                     Name = productItem.Name,
                     Description = productItem.Description,
                     ImageURL = productItem.ImageURL,

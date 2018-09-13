@@ -56,5 +56,14 @@ namespace Shopping.Presentation.Controllers
         }
 
 
+        public ActionResult DeleteFromCart(Guid product)
+        {
+            CartDTO cartDTO = new CartDTO();
+            Guid id = new Guid(product.ToString());
+            CartLogic.DeleteFromCart(new Guid(Session["id"].ToString()), id);
+            return RedirectToAction("Cart");
+        }
+
+
     }
 }

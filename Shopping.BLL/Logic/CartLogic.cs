@@ -47,5 +47,24 @@ namespace Shopping.BLL.Logic
             }
         }
 
+        /// <summary>
+        /// Delete from cart Function
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        public static CartDTO DeleteFromCart(Guid customerId, Guid productId)
+        {
+            try
+            {
+                CartDTO myCart = CartData.DeleteFromCart(customerId, productId);
+                return myCart;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
     }
 }
