@@ -22,33 +22,32 @@ namespace Shopping.BLL.Logic
             {
                 HomePageDTO homePageDTO = new HomePageDTO();
                 var OrderedList = TopProductsData.GetTopProducts().Products.OrderBy(x => x.Category.Id).ThenByDescending(cat => cat.TotalQuantitySale).ToList();
-
-                for (int j = 0; j < Constants.TotalCategories; j++)
+                for (int categoryIndex = 0; categoryIndex < Constants.TotalCategories; categoryIndex++)
                 {
                     TrendingDTO category = new TrendingDTO()
                     {
-                        Category = OrderedList[j * (5)].Category,
-                        Rank = j + 1
+                        Category = OrderedList[categoryIndex * (5)].Category,
+                        Rank = categoryIndex + 1
                     };
 
                     List<ProductDTO> temp = new List<ProductDTO>();
-                    for (int i = 0; i < Constants.ProductsToDisplay; i++)
+                    for (int product = 0; product < Constants.ProductsToDisplay; product++)
                     {
-                        temp.Add(OrderedList[(j * 5) + i]);
+                        temp.Add(OrderedList[(categoryIndex * 5) + product]);
                     }
                     var sortedProducts = temp.OrderByDescending(x => x.TotalQuantitySale).ToList();
                     ProductsDTO pt = new ProductsDTO();
-                    for (int i = 0; i < Constants.ProductsToDisplay; i++)
+                    for (int product = 0; product < Constants.ProductsToDisplay; product++)
                     {
-                        pt.Products.Add(sortedProducts[i]);
+                        pt.Products.Add(sortedProducts[product]);
                     }
                     category.TopProducts.Add(pt);
                     homePageDTO.Trending.Add(category);
-                    homePageDTO.productFilter = new ProductFilter {
+                    homePageDTO.productFilter = new ProductFilter
+                    {
                         productsDTOs = ProductLogic.AllProducts(),
                         categories = CategoryLogic.AllCategories()
                     };
-
                 }
                 return homePageDTO;
             }
