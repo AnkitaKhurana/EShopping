@@ -1,4 +1,5 @@
 ﻿using Shopping.BLL.Logic;
+using Shopping.Shared.Constants;
 using Shopping.Shared.DTOs;
 using System;
 using System.Collections.Generic;
@@ -13,19 +14,19 @@ namespace Shopping.Presentation.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            AllOrdersDTO orderDTO = OrderLogic.Orders(new Guid(Session["id"].ToString()));
+            AllOrdersDTO orderDTO = OrderLogic.Orders(new Guid(Session[Constants.SessionConstants.SessionId].ToString()));
             return View(orderDTO);
         }
 
         public ActionResult Confirm()
         {
-            return RedirectToAction("Edit","Customer",new { id=Session["id"]});
+            return RedirectToAction("Edit","Customer",new { id=Session[Constants.SessionConstants.SessionId] });
         }
 
         // GET: PlaceOrder
         public ActionResult Place()
         {
-            OrderDTO orderDTO = OrderLogic.PlaceOrder(new Guid(Session["id"].ToString()));
+            OrderDTO orderDTO = OrderLogic.PlaceOrder(new Guid(Session[Constants.SessionConstants.SessionId].ToString()));
             return View(orderDTO);
         }
 

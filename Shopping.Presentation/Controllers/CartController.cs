@@ -1,6 +1,7 @@
 ﻿using Shopping.BLL.Logic;
 using Shopping.Presentation.Mapping;
 using Shopping.Presentation.ViewModels;
+using Shopping.Shared.Constants;
 using Shopping.Shared.DTOs;
 using System;
 using System.Web.Mvc;
@@ -15,11 +16,11 @@ namespace Shopping.Presentation.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            if (Session["id"] == null)
+            if (Session[Constants.SessionConstants.SessionId] == null)
             {
                 return HttpNotFound();
             }
-            string id = Session["id"].ToString();
+            string id = Session[Constants.SessionConstants.SessionId].ToString();
             CartDTO cart = CartLogic.CustomerCart(new Guid(id));
             Cart cartView = CartMapping.MapCart(cart);
             return View(cartView);
@@ -31,11 +32,11 @@ namespace Shopping.Presentation.Controllers
         /// <returns></returns>
         public ActionResult Cart()
         {
-            if (Session["id"] == null)
+            if (Session[Constants.SessionConstants.SessionId] == null)
             {
                 return HttpNotFound();
             }
-            string id = Session["id"].ToString();
+            string id = Session[Constants.SessionConstants.SessionId].ToString();
             CartDTO cart = CartLogic.CustomerCart(new Guid(id));
             Cart cartView = CartMapping.MapCart(cart);
             return View(cartView);
@@ -51,7 +52,7 @@ namespace Shopping.Presentation.Controllers
         {
             CartDTO cartDTO = new CartDTO();
             Guid id = new Guid(product.ToString());
-            CartLogic.AddToCart(new Guid(Session["id"].ToString()), id );
+            CartLogic.AddToCart(new Guid(Session[Constants.SessionConstants.SessionId].ToString()), id );
             return RedirectToAction("Cart");
         }
 
@@ -60,7 +61,7 @@ namespace Shopping.Presentation.Controllers
         {
             CartDTO cartDTO = new CartDTO();
             Guid id = new Guid(product.ToString());
-            CartLogic.DeleteFromCart(new Guid(Session["id"].ToString()), id);
+            CartLogic.DeleteFromCart(new Guid(Session[Constants.SessionConstants.SessionId].ToString()), id);
             return RedirectToAction("Cart");
         }
 

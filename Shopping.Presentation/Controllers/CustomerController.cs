@@ -1,5 +1,6 @@
 ﻿using Shopping.BLL.Logic;
 using Shopping.Presentation.CustomModelBinders;
+using Shopping.Shared.Constants;
 using Shopping.Shared.DTOs;
 using Shopping.Shared.Exceptions;
 using System;
@@ -48,10 +49,7 @@ namespace Shopping.Presentation.Controllers
                         Session["UserName"] = foundCustomer.Name;
                         Session["Email"] = foundCustomer.Email;
                         Session["Role"] = (foundCustomer.Role == 1 ? "Admin" : "Normal Customer");
-                        Session["Id"] = foundCustomer.Id;
-                        Session["Address1"] = foundCustomer.Address1;
-                        Session["Address2"] = foundCustomer.Address2;
-                        Session["Address3"] = foundCustomer.Address3;
+                        Session["Id"] = foundCustomer.Id;                       
 
                     }                  
                     return Redirect(Request.QueryString["RedirectResult"]);
@@ -154,7 +152,7 @@ namespace Shopping.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Address1")] CustomerDTO customer)
         {
-            customer.Id = new Guid(Session["id"].ToString());
+            customer.Id = new Guid(Session[Constants.SessionConstants.SessionId].ToString());
             if (ModelState.IsValid)
             {
                 CustomerLogic.Edit(customer);

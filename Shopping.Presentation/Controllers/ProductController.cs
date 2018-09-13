@@ -23,7 +23,7 @@ namespace Shopping.Presentation.Controllers
         public ActionResult Index(int? page = 1)
         {
             ProductsDTO products = ProductLogic.AllProducts();
-            int pageSize = Constants.PageSize;
+            int pageSize = Constants.PagingConstants.PageSize;
             int pageNumber = (page ?? 1);
             return View(products.Products.ToPagedList(pageNumber, pageSize));
         }
@@ -87,10 +87,9 @@ namespace Shopping.Presentation.Controllers
                 productFilter = productFilters,
                 Trending = null
             };
-            int pageSize = Constants.PageSize;
+            int pageSize = Constants.PagingConstants.PageSize;
             int pageNumber = (page ?? 1);
             return View(homePageDTO.productFilter.productsDTOs.Products.ToPagedList(pageNumber, pageSize));
-
 
         }
     }

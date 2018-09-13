@@ -31,13 +31,13 @@ namespace Shopping.BLL.Logic
                     };
 
                     List<ProductDTO> temp = new List<ProductDTO>();
-                    for (int product = 0; product < Constants.ProductsToDisplay; product++)
+                    for (int product = 0; product < Constants.PagingConstants.ProductsToDisplay; product++)
                     {
                         temp.Add(OrderedList[(categoryIndex * 5) + product]);
                     }
                     var sortedProducts = temp.OrderByDescending(x => x.TotalQuantitySale).ToList();
                     ProductsDTO pt = new ProductsDTO();
-                    for (int product = 0; product < Constants.ProductsToDisplay; product++)
+                    for (int product = 0; product < Constants.PagingConstants.ProductsToDisplay; product++)
                     {
                         pt.Products.Add(sortedProducts[product]);
                     }
