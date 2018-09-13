@@ -43,6 +43,7 @@ namespace Shopping.DAL.Data
                     {
                         Id = result.cl.Id,
                         Quantity = result.cl.Quantity,
+                        VariantName = result.cl.VariantName,
                         Product = new ProductDTO()
                         {
                             Id = result.p.Id,
@@ -56,7 +57,6 @@ namespace Shopping.DAL.Data
                                 Id = result.pc.Id,
                                 Name = result.pc.Name,
                                 TotalSaleQuantity = result.pc.TotalSaleQuantity
-
                             },
                             Variants = variants
                         }
@@ -78,7 +78,7 @@ namespace Shopping.DAL.Data
         /// <param name="CustomerId"></param>
         /// <param name="ProductId"></param>
         /// <returns></returns>
-        public static CartDTO AddToCart(Guid CustomerId, Guid ProductId)
+        public static CartDTO AddToCart(Guid CustomerId, Guid ProductId, String variantName)
         {
             try
             {
@@ -97,7 +97,8 @@ namespace Shopping.DAL.Data
                         Id = Guid.NewGuid(),
                         CustomerId = CustomerId,
                         ProductId = ProductId,
-                        Quantity = 1
+                        Quantity = 1,
+                        VariantName = variantName
                     };
 
                     db.CartLines.Add(cartLineDTO);

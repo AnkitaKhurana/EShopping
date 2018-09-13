@@ -40,7 +40,8 @@ namespace Shopping.DAL.Data
                             OrderId = productRow.orderLines.OrderId,
                             ProductId = productRow.orderLines.ProductId,
                             Quantity = productRow.orderLines.Quantity,
-                            ProductName = productRow.orderLines.Product.Name
+                            ProductName = productRow.orderLines.Product.Name,
+                            VariantName = productRow.orderLines.VariantName
 
                         });
                     }
@@ -51,7 +52,8 @@ namespace Shopping.DAL.Data
                         OrderStatus = row.order.OrderStatus,
                         CustomerId = row.order.CustomerId,
                         TotalAmount = row.order.TotalAmount,
-                        orders = allOrders
+                        orders = allOrders,
+                        OrderDate = row.order.OrderDate                        
 
                     });
                 }
@@ -90,7 +92,8 @@ namespace Shopping.DAL.Data
                         {
                             Id = Guid.NewGuid(),
                             Quantity = row.cartItem.Quantity,
-                            ProductId = row.cartItem.ProductId
+                            ProductId = row.cartItem.ProductId,
+                            VariantName = row.cartItem.VariantName
                         };
                         db.OrderLines.Add(orderLine);
                         order.OrderLines.Add(orderLine);
@@ -103,14 +106,17 @@ namespace Shopping.DAL.Data
                             OrderId = orderLine.OrderId,
                             ProductId = orderLine.ProductId,
                             Quantity = orderLine.Quantity,
-                            ProductName = orderLine.Product.Name
+                            ProductName = orderLine.Product.Name,
+                            VariantName = orderLine.VariantName
 
                         });
 
                     }
                     order.TotalAmount = sum;
-                    order.OrderStatus = "Placed";
+                    order.OrderStatus = 1;
+                    order.OrderDate = DateTime.Now;
                     db.Orders.Add(order);
+                   
                     db.SaveChanges();
                     orderDTO = new OrderDTO()
                     {
@@ -118,7 +124,8 @@ namespace Shopping.DAL.Data
                         CustomerId = order.CustomerId,
                         TotalAmount = order.TotalAmount,
                         OrderStatus = order.OrderStatus,
-                        orders = orders
+                        orders = orders,
+                        OrderDate = order.OrderDate
                     };
 
                 }
@@ -154,7 +161,8 @@ namespace Shopping.DAL.Data
                         OrderId = orderLine.OrderId,
                         ProductId = orderLine.ProductId,
                         Quantity = orderLine.Quantity,
-                        ProductName = orderLine.Product.Name
+                        ProductName = orderLine.Product.Name,
+                        VariantName = orderLine.VariantName
                     });
                 }
 
@@ -168,7 +176,8 @@ namespace Shopping.DAL.Data
                     orders = orders,
                     CustomerId = orderInDb.CustomerId,
                     OrderStatus = orderInDb.OrderStatus,
-                    TotalAmount = orderInDb.TotalAmount
+                    TotalAmount = orderInDb.TotalAmount,
+                    OrderDate = orderInDb.OrderDate 
                 };
             }
             catch

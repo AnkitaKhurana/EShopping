@@ -47,12 +47,26 @@ namespace Shopping.Presentation.Controllers
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>     
-        
-        public ActionResult AddToCart(Guid product)
+
+        //public ActionResult AddToCart(Guid? product, string VariantName)
+        public ActionResult AddToCart(Guid? product)
         {
             CartDTO cartDTO = new CartDTO();
-            Guid id = new Guid(product.ToString());
-            CartLogic.AddToCart(new Guid(Session[Constants.SessionConstants.SessionId].ToString()), id );
+            if (Request.Form.Count != 0)
+            {
+                Guid id = new Guid(Request.Form["product"].ToString());
+                string VariantName = Request.Form["VariantName"];
+                //new Guid(product.ToString());
+                CartLogic.AddToCart(new Guid(Session[Constants.SessionConstants.SessionId].ToString()), id, VariantName);
+
+            }
+            else
+            { 
+             Guid id = new Guid(product.ToString());
+              CartLogic.AddToCart(new Guid(Session[Constants.SessionConstants.SessionId].ToString()), id, "");
+
+            }
+
             return RedirectToAction("Cart");
         }
 

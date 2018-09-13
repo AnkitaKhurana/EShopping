@@ -15,44 +15,57 @@
 <h2>Index</h2>
 
 <div>
-    <h4>OrderDTO</h4>
+    <h4>Orders</h4>
     <hr />
-    @foreach (var order in Model.Orders)
+    @if (Model.Orders.Count != 0)
     {
+        var SortedList = Model.Orders.ToList().OrderByDescending(x=>x.OrderDate);
+        foreach (var order in SortedList)
+        {
+            <div class="container">
+                <div class="box">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <dt>
+                                Date:
+                            </dt>
+                            <dd>
+                                @if (order.OrderDate.HasValue)
+                                {
+                                <p> @order.OrderDate.Value.Day-@order.OrderDate.Value.Month-@order.OrderDate.Value.Year</p>                                 
+                                }
 
+                            </dd>
+                            <dt>
+                                Order Status:
+                            </dt>
+                            <dd>
+                                @(order.OrderStatus==1?"Placed":"Dispatched")
+                            </dd>
+                            <dt>
+                                Amount:
+                            </dt>
+                            <dd>
+                                @order.TotalAmount
+                            </dd>
+                        </div>
+                        <div class="col-md-2">
+                            <dd>
+                                <a href=@Url.Action("Order", "Order", new { order = order.Id }, null)>
+                                    <Button class="btn btn-warning ">Details</Button>
+                                </a>
+                            </dd>
+                        </div>
 
-        <div class="container">
-            <div class="box">
-                <div class="row">
-
-                    <div class="col-md-10">
-                        <dt>
-                            Order Status:
-                        </dt>
-                        <dd>
-                            @order.OrderStatus
-                        </dd>
-                        <dt>
-                            Amount:
-                        </dt>
-                        <dd>
-                            @order.TotalAmount
-                        </dd>
                     </div>
-                    <div class="col-md-2">
-                        <dd>
-                            <a href=@Url.Action("Order", "Order", new { order = order.Id }, null)>
-                                <Button class="btn btn-warning ">Details</Button>
-                            </a>
-                        </dd>
-                    </div>
-
-
                 </div>
             </div>
-        </div>
 
+        }
     }
-    <p>
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+    else
+    {
+        <p>No Orders till Now !</p>
+    }
+
+  

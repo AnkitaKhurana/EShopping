@@ -34,11 +34,11 @@ namespace Shopping.BLL.Logic
         /// <param name="customerId"></param>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public static CartDTO AddToCart(Guid customerId, Guid productId)
+        public static CartDTO AddToCart(Guid customerId, Guid productId, string variantname)
         {
             try
             {
-                CartDTO myCart = CartData.AddToCart(customerId, productId);
+                CartDTO myCart = CartData.AddToCart(customerId, productId, variantname);
                 return myCart;
             }
             catch (Exception)

@@ -18,6 +18,7 @@ namespace Shopping.Data
         public System.Guid OrderId { get; set; }
         public System.Guid ProductId { get; set; }
         public int Quantity { get; set; }
+        public string VariantName { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }

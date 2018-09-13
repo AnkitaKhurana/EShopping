@@ -11,5 +11,6 @@ namespace Shopping.Shared.DTOs
         public Guid ProductId { get; set; }
         public int Quantity { get; set; }    
         public string ProductName { get; set; }
+        public string VariantName { get; set; }
     }
 }

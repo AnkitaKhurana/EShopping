@@ -29,7 +29,7 @@ namespace Shopping.DAL.Data
                 Customer dbCustomer = CustomerMapping.MapCustomer(customer);
 
                 var alreadyExistsCheck = db.Customers.Find(customer.Id);
-                if (alreadyExistsCheck != null)
+                if (alreadyExistsCheck == null)
                 {
                     db.Customers.Add(dbCustomer);
                     db.SaveChanges();

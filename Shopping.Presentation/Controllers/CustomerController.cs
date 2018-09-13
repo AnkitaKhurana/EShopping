@@ -55,22 +55,18 @@ namespace Shopping.Presentation.Controllers
                         Session["Address3"] = foundCustomer.Address3;
 
 
-                    }                  
+                    }    
+                    if(Request.QueryString["RedirectResult"]!=null)
                     return Redirect(Request.QueryString["RedirectResult"]);
                 }
-                return RedirectToAction("Register");
+                return RedirectToAction("Details");
             }          
             catch (NoSuchUserFound error)
             {
                 ViewBag.ErrorMessage = error.Message;
                 return View("Error");
             }
-            catch (RetryLimitExceededException /* dex */)
-            {
-                ModelState.AddModelError("", "Unable to Login. Try again, and if the problem persists see your system administrator.");
-                return View("Error");
-            }
-            catch (Exception)
+            catch (Exception e)
             {
                 return View("Error");
             }
